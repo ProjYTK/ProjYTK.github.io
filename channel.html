@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Channel - YTKiller</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header>
+  <a class="logo" href="index.html"><span class="orb"></span>YT<b>Killer</b></a>
+  <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
+  <button class="btn">Upload</button>
+  <a class="ghost" href="rules.html">Rules</a>
+</header>
+<div class="banner"></div>
+<div class="chead"><div class="avatar"></div><div><h1>Example creator</h1><p>placeholder subscriber count · placeholder video count</p></div><span style="flex:1"></span><button class="btn">Subscribe</button></div>
+<div class="tabs"><span class="tab on">Videos</span><span class="tab">Playlists</span><span class="tab">About</span><span class="tab">Moderation log</span></div>
+<h2>Uploads (newest first)</h2>
+<main class="grid" data-cards="8"></main>
+<footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
+<script>
+document.querySelectorAll('[data-cards]').forEach(g=>{const n=+g.dataset.cards;for(let i=1;i<=n;i++)g.insertAdjacentHTML('beforeend',
+`<a class="card" href="watch.html"><div class="thumb">Placeholder video ${i}<span class="dur">0:00</span></div><div class="meta"><h3>Example video title ${i}</h3><small>Example creator · placeholder</small></div></a>`)});
+document.querySelectorAll('[data-minis]').forEach(g=>{for(let i=1;i<=+g.dataset.minis;i++)g.insertAdjacentHTML('beforeend',
+`<a class="mini" href="watch.html"><div class="thumb">Placeholder<span class="dur">0:00</span></div><div><h3>Example up-next video ${i}</h3><small>Example creator<br>placeholder</small></div></a>`)});
+</script>
+</body></html>

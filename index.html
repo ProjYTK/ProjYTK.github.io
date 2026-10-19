@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home - YTKiller</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header>
+  <a class="logo" href="index.html"><span class="orb"></span>YT<b>Killer</b></a>
+  <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
+  <button class="btn">Upload</button>
+  <a class="ghost" href="rules.html">Rules</a>
+</header>
+
+<section class="hero">
+  <h1><strong>Say it. Post it.</strong> It stays up.</h1>
+  <p>A video site with clear, public rules, no shadowbans, and no surprise demonetization.</p>
+  <div class="pillars">
+    <span class="pill">Written rules, applied the same to everyone</span>
+    <span class="pill">Every removal explained publicly</span>
+    <span class="pill">Chronological feed, no hidden algorithm</span>
+    <span class="pill">Creators own and can export their videos</span>
+  </div>
+</section>
+<h2>Latest uploads</h2>
+<main class="grid" data-cards="8"></main>
+
+<footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
+<script>
+document.querySelectorAll('[data-cards]').forEach(g=>{const n=+g.dataset.cards;for(let i=1;i<=n;i++)g.insertAdjacentHTML('beforeend',
+`<a class="card" href="watch.html"><div class="thumb">Placeholder video ${i}<span class="dur">0:00</span></div><div class="meta"><h3>Example video title ${i}</h3><small>Example creator · placeholder</small></div></a>`)});
+document.querySelectorAll('[data-minis]').forEach(g=>{for(let i=1;i<=+g.dataset.minis;i++)g.insertAdjacentHTML('beforeend',
+`<a class="mini" href="watch.html"><div class="thumb">Placeholder<span class="dur">0:00</span></div><div><h3>Example up-next video ${i}</h3><small>Example creator<br>placeholder</small></div></a>`)});
+</script>
+</body></html>
