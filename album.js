@@ -29,3 +29,4 @@
     var li = list.children[start]; if (li) li.scrollIntoView({ block: "center" });
   }
 })();
+(function(){var u=location.origin+location.pathname+location.search;var c=document.querySelector('link[rel=canonical]'),o=document.querySelector('meta[property="og:url"]');if(c)c.href=u;if(o)o.content=u;var t=document.querySelector('meta[property="og:title"]');if(t)t.content=document.title;})();
