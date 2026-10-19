@@ -191,6 +191,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     var $ = function (id) { return document.getElementById(id); };
     var list = $('imp-list'), status = $('imp-status'), state = { videos: [], files: [] };
+    var nFiles = function (n) { return n + ' video file' + (n === 1 ? '' : 's'); };
     var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
 
     function render() {
@@ -239,7 +240,7 @@
       status.className = 'imp-status' + (errs.length && !vids.length ? ' bad' : '');
       status.textContent = vids.length
         ? 'Found ' + vids.length + ' video' + (vids.length > 1 ? 's' : '') + '. Private, deleted and failed videos start unticked.' +
-          (state.files.length ? ' Matched ' + matched + ' of ' + state.files.length + ' video files by title.' : '') + (errs.length ? ' Skipped: ' + errs.join('; ') : '')
+          (state.files.length ? ' Matched ' + matched + ' of ' + nFiles(state.files.length) + ' by title.' : '') + (errs.length ? ' Skipped: ' + errs.join('; ') : '')
         : (errs.join(' ') || 'No videos found in that file.');
       render();
     }
@@ -250,8 +251,8 @@
     $('imp-files').addEventListener('change', function (e) {
       state.files = Array.prototype.map.call(e.target.files, function (f) { return f.name; });
       if (state.videos.length) { state.videos.forEach(function (x) { delete x.file; }); matchFiles(state.videos, state.files); render();
-        status.textContent = 'Matched ' + state.videos.filter(function (x) { return x.file; }).length + ' of ' + state.files.length + ' video files by title.'; }
-      else status.textContent = state.files.length + ' video files chosen. Now choose your videos.csv file.';
+        status.textContent = 'Matched ' + state.videos.filter(function (x) { return x.file; }).length + ' of ' + nFiles(state.files.length) + ' by title.'; }
+      else status.textContent = nFiles(state.files.length) + ' chosen. Now choose your videos.csv file.';
     });
     $('imp-sample').addEventListener('click', function () {
       fetch('sample-videos.csv').then(function (r) { return r.text(); }).then(function (t) { var r = parseTakeout(t, 'videos.csv'); r.name = 'sample'; load([r]); })

@@ -11,7 +11,8 @@
   function href(v) { return 'watch.html?v=' + encodeURIComponent(v.id) + (v.host === 'clipplace' ? '&host=clipplace' : ''); }
   function thumb(v, label) {
     var img = v && v.host !== 'clipplace' ? '<img class="rr-timg" alt="" loading="lazy" src="https://archive.org/services/img/' + encodeURIComponent(v.id) + '" onerror="this.remove()">' : '';
-    return '<div class="thumb">' + img + label + '</div>';
+    var cw = v && v.contentWarning ? '<span class="cw-tag" title="' + esc(v.contentWarning) + '">Content warning</span>' : '';
+    return '<div class="thumb">' + img + cw + label + '</div>';
   }
   // 'YYYY-MM-DD' -> 'Oct 19, 2026' (parsed by hand, so no time-zone shift). Bad or missing -> ''.
   var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];

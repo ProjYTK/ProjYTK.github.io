@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=7"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/watch.html"><meta property="og:url" content="https://rawreel.github.io/watch.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
+<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=8"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/watch.html"><meta property="og:url" content="https://rawreel.github.io/watch.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Backed up for good</small></a>
@@ -40,9 +40,9 @@
   <aside class="side"><h2>Up next</h2><div data-minis="6"></div></aside>
 </div>
 <footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
-<script src="videos.js"></script>
-<script src="ads.js"></script>
-<script src="cards.js"></script>
+<script src="videos.js?v=8"></script>
+<script src="ads.js?v=8"></script>
+<script src="cards.js?v=8"></script>
 <script>
 (function(){
   const params = new URLSearchParams(location.search);
@@ -81,7 +81,11 @@
     // The release year shows on the line under the title (#vdate).
     const r = $('vrights');
     r.innerHTML = `<h3>Source and rights</h3>
-      <p><b>${known.license ? esc(known.license) : 'Public domain'}</b>${known.year ? ' · released ' + esc(known.year) : ''}${known.yearSource ? ` (<a href="${esc(known.yearSource)}" target="_blank" rel="noopener">year source</a>)` : ''}</p>
+      <p><b>${known.license ? 'License: ' + (/^CC BY/.test(known.license) ? 'CC BY' : esc(known.license)) : esc(known.rightsLabel || 'Public domain')}</b>${known.license && known.license !== 'CC BY' ? ' (' + (known.licenseUrl ? `<a href="${esc(known.licenseUrl)}" target="_blank" rel="noopener">${esc(known.license)}</a>` : esc(known.license)) + ')' : ''}${known.year ? ' · released ' + esc(known.year) : ''}${known.yearSource ? ` (<a href="${esc(known.yearSource)}" target="_blank" rel="noopener">year source</a>)` : ''}</p>
+      ${known.mission ? `<p>Mission: ${esc(known.mission)}</p>` : ''}
+      ${known.credit ? `<p class="credit">Credit: ${esc(known.credit)}</p>` : ''}
+      ${known.musicCredit ? `<p class="credit">${esc(known.musicCredit)}</p>` : ''}
+      ${known.runtime ? `<p>Runtime of this copy: ${esc(known.runtime)}${known.runtimeNote ? '. ' + esc(known.runtimeNote) : ''}</p>` : ''}
       <p>${esc(known.rights || '')}${known.rightsNote ? ' ' + esc(known.rightsNote) : ''}</p>
       <p>Source: <a href="${esc(known.source || 'https://archive.org/details/' + encodeURIComponent(id))}" target="_blank" rel="noopener">Internet Archive item ${esc(id)}</a></p>`;
     r.hidden = false;
@@ -229,7 +233,17 @@
     ['vrow', 'vnotice', 'vcomh', 'vcom'].forEach(x => { $(x).hidden = false; });
     if (!$('vcreator').textContent) $('vcreator').textContent = host === 'clipplace' ? 'clip.place creator' : 'Internet Archive uploader';
   }
-  const start = load => { reveal(); preroll(played => (load || loadEmbed)(played)); };
+  const start = load => {
+    reveal();
+    const go = () => preroll(played => (load || loadEmbed)(played));
+    if (!known.contentWarning) return go();
+    // Content warning: nothing loads or plays until the viewer chooses to continue.
+    p.className = 'player rr-nf rr-cw';
+    p.innerHTML = `<div class="rr-nf-card" role="alertdialog" aria-labelledby="cw-h" aria-describedby="cw-t"><h2 id="cw-h">Before you watch</h2><p id="cw-t">${esc(known.contentWarning)}</p>
+      <div class="rr-nf-btns"><button type="button" class="btn" id="cw-go">Continue to the film</button><a class="ghost" href="classics.html">Back to classics</a></div></div>`;
+    $('cw-go').addEventListener('click', () => { p.className = 'player'; p.innerHTML = ''; go(); });
+    $('cw-go').focus({ preventScroll: true });
+  };
 
   // Existence check first. A clear "doesn't exist" answer shows Not found; a network error still shows the player.
   if (host === 'clipplace') {
@@ -244,6 +258,8 @@
       const files = pickMp4(d.files);
       // A file named in videos.js goes first.
       if (known.file) { const i = files.findIndex(f => f.name === known.file); if (i > 0) files.unshift(files.splice(i, 1)[0]); }
+      // fileOnly: play exactly this file (e.g. the full Blender film), never another .mp4 from the item.
+      if (known.fileOnly) files.splice(0, files.length, ...files.filter(f => f.name === known.file));
       if (!files.length) {
         if (!known.title && !(d.metadata || {}).title) $('vtitle').textContent = 'No playable video file';
         return playerMessage('No playable video file', "This Internet Archive item doesn't have an .mp4 file we can play here.",
@@ -260,5 +276,5 @@
   }
 })();
 </script>
-<script src="nav.js"></script>
+<script src="nav.js?v=8"></script>
 </body></html>
