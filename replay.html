@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="favicon.svg"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="replay.css"><title>RawReplay: music from upcoming artists</title></head><body class="rr-music"><header><a class="logo" href="replay.html"><span class="orb"></span>Raw<b>Replay</b></a><span class="note" aria-hidden="true">&#9835;</span><nav class="navlinks"><a href="replay.html">Home</a><a href="submit.html">Share</a><a href="replay-rules.html">Rules</a></nav></header>
+<main class="wrap"><section class="hero"><h1>Your music. Your release. No ads.</h1>
+<p>RawReplay is a free, ad-free place for upcoming and independent artists to share music they made themselves.</p>
+<a class="btn" href="submit.html">Share your music</a></section>
+<h2>New from upcoming artists</h2><div class="grid" id="grid"></div>
+<h2>Fresh tracks</h2><ul class="tracks" id="fresh"></ul>
+<p class="summary">Demo catalog uses CC0 test tracks from the Internet Archive. Only artists' own work is posted here. <a href="replay-rules.html">Read the rules</a>.</p></main>
+<script src="replay-data.js"></script><script>
+var R=REPLAY,g='',f='';
+REPLAY_RELEASES.forEach(function(r){g+='<a class="card" href="album.html?id='+r.id+'"><img src="'+R.cover(r)+'" alt="Cover of '+R.esc(r.title)+'"><b>'+R.esc(r.title)+'</b><span>'+R.esc(r.artist)+'</span></a>';
+ r.tracks.slice(0,2).forEach(function(t,i){f+='<li onclick="location.href=\'album.html?id='+r.id+'&t='+i+'\'"><span class="n">&#9654;</span><span class="t">'+R.esc(t.title)+'<small>'+R.esc(r.artist)+' &middot; '+R.esc(r.title)+'</small></span><span class="d">'+t.length+'</span></li>';});});
+document.getElementById('grid').innerHTML=g;document.getElementById('fresh').innerHTML=f;
+</script></body></html>

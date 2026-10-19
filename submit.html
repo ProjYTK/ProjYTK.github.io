@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="favicon.svg"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="replay.css"><title>Share your music | RawReplay</title></head><body class="rr-music"><header><a class="logo" href="replay.html"><span class="orb"></span>Raw<b>Replay</b></a><span class="note" aria-hidden="true">&#9835;</span><nav class="navlinks"><a href="replay.html">Home</a><a href="submit.html">Share</a><a href="replay-rules.html">Rules</a></nav></header>
+<main class="wrap"><h1 style="color:#fff">Share your music</h1>
+<p class="note-box">Placeholder form, nothing is sent yet. Every submission is reviewed by the RawReel team before it goes live. Only post music you made and have the right to share.</p>
+<form class="form" onsubmit="event.preventDefault();document.getElementById('ok').hidden=false;">
+<label>Artist name<input required></label><label>Release title<input required></label>
+<label>Audio files (mp3)<input type="file" accept="audio/mpeg" multiple></label><label>Cover art (yours)<input type="file" accept="image/*"></label>
+<label>Notes for the team<textarea rows="3"></textarea></label>
+<label class="check"><input type="checkbox" required> <span>I made this music or have permission for everything in it, and it is not a leak or anyone else's song.</span></label>
+<p class="summary">Before you submit, read the <a href="replay-rules.html">RawReplay rules summary</a>.</p>
+<button class="btn">Send for review</button><p id="ok" class="note-box" hidden>Thanks! (Prototype: nothing was uploaded.)</p></form></main></body></html>
