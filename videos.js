@@ -72,7 +72,8 @@
 
   var CHANNELS = [
     { id: 'sSUJPQzV9V9ps2HR58rctR', date: '2026-10-19', host: 'clipplace', category: 'channel', title: 'RawReel test clip (clip.place backup)', creator: 'RawReel' },
-    { id: 'rawreel-test-clip', date: '2026-10-19', category: 'channel', title: 'RawReel test clip', creator: 'RawReel', note: 'Our own CC0 test upload' }
+    { id: 'rawreel-test-clip', date: '2026-10-19', category: 'channel', title: 'RawReel test clip', creator: 'RawReel', note: 'Our own CC0 test upload' },
+    { id: 'rawreel-upload-test', date: '2026-10-19', category: 'channel', title: 'RawReel upload test', creator: 'RawReel', license: 'CC0', file: 'upload-test.mp4' }
   ];
 
   var all = CLASSICS.concat(CHANNELS).map(function (v) {
