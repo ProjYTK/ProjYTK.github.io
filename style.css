@@ -637,3 +637,17 @@ html[data-theme="dark"] .rule .num { color:#fff; }
 .faq-a { padding:0 16px 10px; color:#3f5568; line-height:1.55; font-size:14.5px; } .faq-a a { overflow-wrap:anywhere; }
 html[data-theme="dark"] .faq { background:linear-gradient(180deg,rgba(32,70,112,.9),rgba(18,44,74,.92)); border-color:#2d5c8a; }
 html[data-theme="dark"] .faq summary { color:#cfe7ff; } html[data-theme="dark"] .faq-a { color:#c3d8ec; }
+
+/* @handles (PeerTube usernames) */
+.handle-wrap { display:flex; align-items:stretch; max-width:560px; }
+.handle-wrap .handle-at { display:flex; align-items:center; justify-content:center; min-width:44px; min-height:44px; padding:0 10px; border:1px solid #a9cfe8; border-right:0; border-radius:8px 0 0 8px; font-weight:700; color:#1f6fb2; background:linear-gradient(180deg,#ffffff 0%,#e3f2fc 50%,#cfe7f8 100%); box-shadow:inset 0 1px 0 rgba(255,255,255,.9); }
+.handle-wrap .field { flex:1; min-width:0; min-height:44px; border-radius:0 8px 8px 0; margin:0; }
+.handle-wrap .field[readonly] { background:#f2f7fb; color:#4b6275; }
+.handle-status.good { color:#2f7a1f; } .handle-status.bad { color:#b3261e; }
+.acct-id { display:flex; flex-direction:column; margin:12px 0 4px; }
+.acct-id b { font-size:18px; } .acct-id small, .chandle, .vhandle, .handle { color:#5d7a90; }
+.chandle { margin:2px 0; font-weight:600; } .vhandle { margin-left:6px; }
+html[data-theme="dark"] .handle-wrap .handle-at { color:#cfe6ff; border-color:#3d6488; background:linear-gradient(180deg,#3a74ad,#22507f); box-shadow:inset 0 1px 0 rgba(255,255,255,.25); }
+html[data-theme="dark"] .handle-wrap .field[readonly] { background:#1b2b3a; color:#a9c1d6; }
+html[data-theme="dark"] .acct-id small, html[data-theme="dark"] .chandle, html[data-theme="dark"] .vhandle, html[data-theme="dark"] .handle { color:#9fbad3; }
+html[data-theme="dark"] .handle-status.good { color:#8fd67a; } html[data-theme="dark"] .handle-status.bad { color:#ff9a90; }

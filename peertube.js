@@ -115,6 +115,21 @@
       });
     },
     api: api,
+    // Handle availability. Handle = PeerTube username (unique, first come first served, permanent).
+    // GET /api/v1/accounts/{name} is public: 404 = free, 200 = taken. Channel names share the same actor
+    // namespace, so GET /api/v1/video-channels/{name} is checked too. Resolves { status: 'off'|'free'|'taken'|'error' }.
+    // Flag off = no network call. This is advisory; POST /users/register still decides (409 if taken).
+    checkHandle: function (name) {
+      if (!RRPT.enabled) return Promise.resolve({ status: 'off' });
+      function probe(path) {
+        return fetch(BASE + path + encodeURIComponent(name)).then(function (r) {
+          if (r.status === 404) return 'free'; if (r.ok) return 'taken'; throw new Error('HTTP ' + r.status);
+        });
+      }
+      return Promise.all([probe('/api/v1/accounts/'), probe('/api/v1/video-channels/')])
+        .then(function (a) { return { status: a.indexOf('taken') !== -1 ? 'taken' : 'free' }; })
+        .catch(function () { return { status: 'error' }; });
+    },
     // Account management
     updateMe: function (o) { return api('/api/v1/users/me', { method: 'PUT', auth: true, json: o }); },         // { displayName, description }
     uploadAvatar: function (file) { var fd = new FormData(); fd.append('avatarfile', file, file.name); return api('/api/v1/users/me/avatar/pick', { method: 'POST', auth: true, body: fd }); },

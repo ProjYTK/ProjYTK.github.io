@@ -34,7 +34,7 @@
   function lines(v) {
     var l1 = esc(window.rrDateLine(v)), l2;
     if (v.category === 'classic') l2 = (v.license ? esc(v.license) : 'Public domain') + ' · via ' + hostName(v);
-    else { l1 = [esc(v.creator || ''), l1].filter(Boolean).join(' · '); l2 = 'Backed up on ' + hostName(v); }
+    else { l1 = [esc(v.creator || '') + (v.handle ? ' <span class="handle">@' + esc(v.handle) + '</span>' : ''), l1].filter(Boolean).join(' · '); l2 = 'Backed up on ' + hostName(v); }
     return (l1 ? '<small class="m1">' + l1 + '</small>' : '') + '<small class="m2">' + l2 + '</small>';
   }
   function slot(cls) {

@@ -15,7 +15,15 @@
   function okBox(f) { return f.querySelector('.okmsg'); }
   function fail(f, input, msg) { errBox(f).textContent = msg; if (input) { input.setAttribute('aria-invalid', 'true'); input.focus(); } return false; }
   function clear(f) { errBox(f).textContent = ''; if (okBox(f)) okBox(f).textContent = ''; f.querySelectorAll('[aria-invalid]').forEach(function (i) { i.removeAttribute('aria-invalid'); }); }
-  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/, HANDLE = /^[a-z0-9_.]{1,50}$/;
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/, HANDLE = /^[a-z0-9_.]{1,50}$/;   // PeerTube username rule
+  // Handle = PeerTube username. Reserved here so nobody grabs a staff-looking name first.
+  var RESERVED = ['rawreel', 'admin', 'support', 'root', 'moderator', 'help', 'official', 'replay'];
+  function handleProblem(h) {
+    if (!h) return 'Pick a handle.';
+    if (!HANDLE.test(h)) return 'Handles use 1 to 50 lowercase letters, numbers, dots and underscores.';
+    if (RESERVED.indexOf(h) !== -1) return '@' + h + ' is reserved. Please pick another handle.';
+    return '';
+  }
   function showSoon(f) {
     // Never look like anything was saved: wipe password fields and point at the note.
     f.querySelectorAll('input[type=password]').forEach(function (i) { i.value = ''; });
@@ -54,6 +62,32 @@
     return fetch(avChoice).then(function (r) { return r.blob(); }).then(function (b) { return new File([b], avChoice.split('/').pop(), { type: b.type || 'image/png' }); });
   }
 
+  // Live handle helper on signup: format + reserved check, then the availability stub (no request with the flag off).
+  (function () {
+    var u = $('su-user'), st = $('su-user-status'), pv = $('su-user-preview'); if (!u || !st) return;
+    var t = null, seq = 0;
+    u.addEventListener('input', function () {
+      var cleaned = u.value.replace(/^@+/, '').toLowerCase().replace(/\s+/g, '');
+      if (cleaned !== u.value) u.value = cleaned;
+      if (pv) pv.textContent = cleaned || 'handle';
+      clearTimeout(t); var my = ++seq;
+      st.className = 'hint handle-status';
+      if (!cleaned) { st.textContent = ''; return; }
+      var p = handleProblem(cleaned);
+      if (p) { st.textContent = p; st.classList.add('bad'); return; }
+      if (!on) { st.textContent = 'Availability check opens with accounts.'; return; }
+      st.textContent = 'Checking @' + cleaned + '…';
+      t = setTimeout(function () {
+        pt.checkHandle(cleaned).then(function (r) {
+          if (my !== seq) return;
+          if (r.status === 'free') { st.textContent = '@' + cleaned + ' is available right now. First come, first served.'; st.classList.add('good'); }
+          else if (r.status === 'taken') { st.textContent = '@' + cleaned + ' is taken. Try another.'; st.classList.add('bad'); }
+          else st.textContent = "Couldn't check right now. We'll check again when you sign up.";
+        });
+      }, 400);
+    });
+  })();
+
   // Sign in + forgot password
   bind('f-signin', function (f) {
     var u = $('si-user'), p = $('si-pass');
@@ -76,12 +110,13 @@
   bind('f-signup', function (f) {
     var dn = $('su-display'), u = $('su-user'), m = $('su-email'), p = $('su-pass'), p2 = $('su-pass2'), c = $('su-channel');
     if (!dn.value.trim()) return fail(f, dn, 'Add a display name.');
-    if (!HANDLE.test(u.value.trim())) return fail(f, u, 'Usernames use lowercase letters, numbers, dots and underscores (up to 50).');
+    var hp = handleProblem(u.value.trim()); if (hp) return fail(f, u, hp);
     if (!EMAIL.test(m.value.trim())) return fail(f, m, 'Enter a valid email address.');
     if (p.value.length < 8) return fail(f, p, 'Use at least 8 characters for your password.');
     if (p.value !== p2.value) return fail(f, p2, "The passwords don't match.");
     if (!HANDLE.test(c.value.trim())) return fail(f, c, 'Channel handles use lowercase letters, numbers, dots and underscores.');
-    if (c.value.trim() === u.value.trim()) return fail(f, c, 'Your channel handle must be different from your username.');
+    if (RESERVED.indexOf(c.value.trim()) !== -1) return fail(f, c, 'That channel name is reserved. Please pick another.');
+    if (c.value.trim() === u.value.trim()) return fail(f, c, 'Your channel handle must be different from your account handle.');
     if (!$('su-ok').checked) return fail(f, $('su-ok'), 'Please confirm your age and the rules.');
     return { username: u.value.trim(), displayName: dn.value.trim(), email: m.value.trim(), password: p.value, channel: { name: c.value.trim(), displayName: dn.value.trim() } };
   }, function (d, f) {
@@ -112,10 +147,16 @@
     pt.me().then(function (u) {
       me = u;
       if (page === 'account') {
-        $('ac-display').value = u.account && u.account.displayName || ''; $('ac-bio').value = u.account && u.account.description || ''; $('ac-email').value = u.email || '';
+        $('ac-display').value = u.account && u.account.displayName || '';
+        $('ac-handle').value = u.username || '';
+        if (u.account && u.account.displayName) $('ac-name').textContent = u.account.displayName; $('ac-bio').value = u.account && u.account.description || ''; $('ac-email').value = u.email || '';
         $('ac-bio-count').textContent = $('ac-bio').value.length;
         var av = u.account && (u.account.avatars || [])[0];
         if (av) $('ac-avatar-img').style.backgroundImage = 'url(' + pt.base + av.path + ')';
+      }
+      if ((page === 'account' || page === 'my-channel') && u.username) {
+        var hl = $(page === 'account' ? 'ac-handle-line' : 'mc-handle'); if (hl) hl.textContent = '@' + u.username;
+        if (page === 'my-channel' && u.account && u.account.displayName) $('mc-name').textContent = u.account.displayName;
       }
       if (page === 'my-channel') renderChannels(u.videoChannels || []);
     }).catch(function (x) { var f = document.querySelector('.acct-form'); if (f) errBox(f).textContent = 'Could not load your account: ' + x.message; });
@@ -139,14 +180,15 @@
   // My channel
   function renderChannels(list) {
     $('ch-list').innerHTML = list.length ? list.map(function (c) {
-      return '<div class="acct-row"><span class="avatar"></span><div><b>' + esc(c.displayName) + '</b><br><small>' + esc(c.name) + '@' + esc(c.host || 'video.rawreel.org') + '</small></div><a class="ghost" href="channel.html?c=' + encodeURIComponent(c.name) + '">View</a></div>';
+      return '<div class="acct-row"><span class="avatar"></span><div><b>' + esc(c.displayName) + '</b><br><small>@' + esc(c.name) + '@' + esc(c.host || 'video.rawreel.org') + '</small></div><a class="ghost" href="channel.html?c=' + encodeURIComponent(c.name) + '">View</a></div>';
     }).join('') : '<p class="empty-note">No channels yet.</p>';
   }
   bind('f-channel', function (f) {
     var dn = $('ch-display'), n = $('ch-name');
     if (!dn.value.trim()) return fail(f, dn, 'Add a channel display name.');
     if (!HANDLE.test(n.value.trim())) return fail(f, n, 'Handles use lowercase letters, numbers, dots and underscores.');
-    if (me && me.username === n.value.trim()) return fail(f, n, 'The handle must be different from your username.');
+    if (RESERVED.indexOf(n.value.trim()) !== -1) return fail(f, n, 'That handle is reserved. Please pick another.');
+    if (me && me.username === n.value.trim()) return fail(f, n, 'The channel handle must be different from your account handle.');
     return { displayName: dn.value.trim(), name: n.value.trim(), description: $('ch-desc').value.trim() };
   }, function (d, f) { return pt.createChannel(d).then(function () { okBox(f).textContent = 'Channel created.'; f.reset(); return pt.me().then(function (u) { renderChannels(u.videoChannels || []); }); }); });
 
@@ -193,7 +235,7 @@
     });
     pt.subscriptionVideos().then(function (r) {
       var d = r.data || []; if (!d.length) return;
-      $('sb-videos').innerHTML = d.map(function (v) { return '<a class="card" href="' + esc(pt.watchUrl(v)) + '"><div class="thumb"><img class="rr-timg" alt="" src="' + esc(pt.base + v.thumbnailPath) + '"></div><div class="meta"><h3>' + esc(v.name) + '</h3><small class="m1">' + esc(v.channel && v.channel.displayName) + '</small></div></a>'; }).join('');
+      $('sb-videos').innerHTML = d.map(function (v) { return '<a class="card" href="' + esc(pt.watchUrl(v)) + '"><div class="thumb"><img class="rr-timg" alt="" src="' + esc(pt.base + v.thumbnailPath) + '"></div><div class="meta"><h3>' + esc(v.name) + '</h3><small class="m1">' + esc(v.channel && v.channel.displayName) + (v.account && v.account.name ? ' <span class="handle">@' + esc(v.account.name) + '</span>' : '') + '</small></div></a>'; }).join('');
     });
   }
   if (on && page === 'subscriptions' && pt.isSignedIn()) loadSubs();

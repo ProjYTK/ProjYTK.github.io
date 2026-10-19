@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=10"><script src="settings.js?v=10"></script><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/watch.html"><meta property="og:url" content="https://rawreel.github.io/watch.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
+<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=12"><script src="settings.js?v=12"></script><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/watch.html"><meta property="og:url" content="https://rawreel.github.io/watch.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Backed up for good</small></a>
@@ -42,7 +42,7 @@
       <div class="vinfo">
         <h1 id="vtitle">Loading video…</h1>
         <p class="vdate" id="vdate" hidden></p>
-        <div class="row" id="vrow" hidden><a href="channel.html" class="avatar"></a><div><a href="channel.html"><b class="vcreator" id="vcreator"></b></a><br><span id="vsubline">Channel</span></div>
+        <div class="row" id="vrow" hidden><a href="channel.html" class="avatar"></a><div><a href="channel.html"><b class="vcreator" id="vcreator"></b></a><small class="vhandle handle" id="vhandle" hidden></small><br><span id="vsubline">Channel</span></div>
           <div class="acts"><button class="btn">Subscribe</button><button class="ghost">Like</button><button class="ghost">Share</button><a class="ghost" id="vdl" href="#" target="_blank" rel="noopener">Download</a></div></div>
         <p id="vdesc" class="vdesc"></p>
         <div class="rights" id="vrights" hidden></div>
@@ -55,9 +55,9 @@
   <aside class="side"><h2>Up next</h2><div data-minis="6"></div></aside>
 </div>
 <footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data. · <a href="faq.html">FAQ</a></footer>
-<script src="videos.js?v=10"></script>
-<script src="ads.js?v=10"></script>
-<script src="cards.js?v=10"></script>
+<script src="videos.js?v=12"></script>
+<script src="ads.js?v=12"></script>
+<script src="cards.js?v=12"></script>
 <script>
 (function(){
   const params = new URLSearchParams(location.search);
@@ -89,6 +89,8 @@
   const src = `https://clip.place/videos/embed/${encodeURIComponent(id)}${auto ? '?autoplay=1' : ''}`;
   if (known.title) $('vtitle').textContent = known.title;
   if (known.creator) $('vcreator').textContent = known.creator;
+  // @handle only when videos.js has one (PeerTube username). Never made up for existing creators.
+  if (known.handle) { $('vhandle').textContent = '@' + known.handle; $('vhandle').hidden = false; }
   { const dl = window.rrDateLine ? window.rrDateLine(known) : ''; if (dl) { $('vdate').textContent = dl; $('vdate').hidden = false; } }
   // silent:true: the file still has the uncleared music. Remove the Download anchor from the DOM entirely (no href to the file anywhere).
   if (known.silent) { const d = $('vdl'); if (d) d.remove(); }
@@ -342,7 +344,7 @@
   }
 })();
 </script>
-<script src="config.js?v=10"></script>
-<script src="peertube.js?v=10"></script>
-<script src="nav.js?v=10"></script>
+<script src="config.js?v=12"></script>
+<script src="peertube.js?v=12"></script>
+<script src="nav.js?v=12"></script>
 </body></html>

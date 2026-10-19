@@ -7,6 +7,8 @@
 //               "channel" = a creator's backed-up channel video ("Backed-up channels")
 //   title       display title (falls back to the Archive title, then the id)
 //   creator     director, studio or channel name
+//   handle      optional @handle (no @) = the creator's PeerTube username on video.rawreel.org. Only add a real one;
+//               cards and the watch page show it after the creator name. Never invent one for existing creators
 //   year        release year (classics)
 //   date        YYYY-MM-DD the item was added (taken from the Archive item's publicdate/addeddate,
 //               or clip.place publishedAt). Shown as "Added Oct 19, 2026" on channel/submitted videos only;
@@ -118,7 +120,19 @@
     classic("silent-the-fireman", "The Fireman", 1916, "Charlie Chaplin", US, { date: "2020-12-05", file: "The Fireman.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Fireman_(1916_film)" }),
     classic("silent-the-floorwalker", "The Floorwalker", 1916, "Charlie Chaplin", US, { date: "2020-12-05", file: "The Floorwalker.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Floorwalker", rightsNote: "Title card reads The Big Store (later reissue)." }),
     classic("silent-the-musketeers-of-pig-alley", "The Musketeers of Pig Alley", 1912, "D. W. Griffith", US, { date: "2020-12-05", file: "The Musketeers of Pig Alley.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Musketeers_of_Pig_Alley" }),
-    classic("silent-the-revenge-of-a-kinematograph-cameraman", "The Revenge of a Kinematograph Cameraman", 1912, "Władysław Starewicz", FOREIGN("Russian"), { date: "2020-12-05", file: "The Revenge of a Kinematograph Cameraman.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Cameraman%27s_Revenge", classicsOnly: true, runtime: "21.8 min", runtimeNote: "This copy plays slower than the original (about 12-13 min)." })
+    classic("silent-the-revenge-of-a-kinematograph-cameraman", "The Revenge of a Kinematograph Cameraman", 1912, "Władysław Starewicz", FOREIGN("Russian"), { date: "2020-12-05", file: "The Revenge of a Kinematograph Cameraman.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Cameraman%27s_Revenge", classicsOnly: true, runtime: "21.8 min", runtimeNote: "This copy plays slower than the original (about 12-13 min)." }),
+    classic("Felix_TwoLipTime_NoAudio", "Two-Lip Time", 1926, "Otto Messmer", US, { date: "2006-01-22", file: "Felix_TwoLipTime_NoAudio_512kb.mp4", yearSource: "https://en.wikipedia.org/wiki/Two-Lip_Time", contentWarning: "Content warning: ethnic caricatures." }),
+    classic("Felix_AprilMaze_NoAudio", "April Maze", 1930, "Otto Messmer", US, { date: "2006-01-23", file: "Felix_AprilMaze_NoAudio_512kb.mp4", yearSource: "https://en.wikipedia.org/wiki/April_Maze", silent: true }),
+    classic("Felix_AllPuzzled_NoAudio", "Felix: All Puzzled", 1924, "Otto Messmer", US, { date: "2006-01-23", file: "Felix_AllPuzzled_NoAudio_512kb.mp4", yearSource: "https://en.wikipedia.org/wiki/List_of_Felix_the_Cat_cartoons" }),
+    classic("Felix_FindsOut_NoAudio", "Felix Finds Out", 1924, "Otto Messmer", US, { date: "2006-01-25", file: "Felix_FindsOut_NoAudio_512kb.mp4", yearSource: "https://en.wikipedia.org/wiki/Felix_Finds_Out" }),
+    classic("Felix_GoesWest_NoAudio", "Felix Goes West", 1924, "Otto Messmer", US, { date: "2006-01-30", file: "Felix_GoesWest_NoAudio_512kb.mp4", yearSource: "https://en.wikipedia.org/wiki/Felix_Goes_West", contentWarning: "Content warning: ethnic caricatures." }),
+    classic("OutOfTheInkwellTheOuijaBoard", "The Ouija Board", 1920, "Max Fleischer", US, { date: "2011-04-09", file: "OutOfTheInkwell-TheOuijaBoardmaxFleischer1920.mp4", yearSource: "https://en.wikipedia.org/wiki/Out_of_the_Inkwell", silent: true }),
+    classic("koko-the-clown-birthday", "Birthday", 1922, "Max Fleischer", US, { date: "2024-12-22", file: "KokoTheClownBirthday.mp4", yearSource: "https://en.wikipedia.org/wiki/Out_of_the_Inkwell", silent: true }),
+    classic("silent-koko-nuts", "Koko Nuts", 1925, "Dave Fleischer", US, { date: "2020-12-02", file: "Koko Nuts.mp4", yearSource: "https://en.wikipedia.org/wiki/Out_of_the_Inkwell" }),
+    classic("silent-koko-trains-em", "Koko Trains 'Em", 1925, "Dave Fleischer", US, { date: "2020-12-02", file: "Koko Trains 'Em.mp4", yearSource: "https://en.wikipedia.org/wiki/Out_of_the_Inkwell" }),
+    classic("laurel-and-hardy-leave-em-laughing-silent", "Leave 'Em Laughing", 1928, "Clyde Bruckman", US, { date: "2024-09-21", file: "Laurel and Hardy - Leave 'em Laughing (Silent).mp4", yearSource: "https://en.wikipedia.org/wiki/Leave_%27Em_Laughing", silent: true }),
+    classic("1917MoveOnHaroldLloyd", "Move On", 1917, "Harold Lloyd", US, { date: "2015-12-27", file: "1917 Move On (Harold Lloyd).mp4", yearSource: "https://en.wikipedia.org/wiki/Move_On_(1917_film)", silent: true, license: "CC BY 3.0", licenseUrl: "http://creativecommons.org/licenses/by/3.0/", credit: "Uploaded to Internet Archive by MoviesRme (archive.org/details/1917MoveOnHaroldLloyd), CC BY 3.0" }),
+    classic("pinchedharoldlloyd", "Pinched", 1917, "Gilbert Pratt and Harold Lloyd", US, { date: "2019-07-03", file: "Pinched_Harold_Lloyd.mp4", yearSource: "https://en.wikipedia.org/wiki/Harold_Lloyd_filmography" })
   ];
 
   var CHANNELS = [
