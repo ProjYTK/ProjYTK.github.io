@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=3"></head>
+<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=4"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Videos that stay up</small></a>
   <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
   <a class="btn" href="upload.html">Upload</a>
+  <a class="ghost" href="import.html">Import</a>
   <a class="ghost" href="rules.html">Rules</a>
   <a class="ghost" href="about.html">About</a>
 </header>
@@ -15,56 +16,117 @@
       <div class="player" id="player"><div class="play"></div><div class="pbar"></div></div>
       <div class="vinfo">
         <h1 id="vtitle">Example video title</h1>
-        <div class="row"><a href="channel.html" class="avatar"></a><div><a href="channel.html"><b style="color:#1f4f7a" id="vcreator">Example creator</b></a><br>placeholder subscriber count</div>
-          <span style="flex:1"></span><button class="btn">Subscribe</button><button class="ghost">Like</button><button class="ghost">Share</button><a class="ghost" id="vdl" href="#" target="_blank" rel="noopener">Download</a></div>
+        <div class="row" id="vrow"><a href="channel.html" class="avatar"></a><div><a href="channel.html"><b style="color:#1f4f7a" id="vcreator">Example creator</b></a><br>placeholder subscriber count</div>
+          <span style="flex:1"></span><div class="acts"><button class="btn">Subscribe</button><button class="ghost">Like</button><button class="ghost">Share</button><a class="ghost" id="vdl" href="#" target="_blank" rel="noopener">Download</a></div></div>
         <p id="vdesc" style="color:#4f6577;font-size:14px;margin:14px 0 0">Placeholder description. Uploaded videos will show their real description, upload date, and view count here.</p>
       </div>
-      <div class="notice">This video follows the <a href="rules.html" style="text-decoration:underline">public rules</a>. If it is ever restricted or removed, the reason will be posted right here, in plain words.</div>
+      <div class="notice" id="vnotice">This video follows the <a href="rules.html" style="text-decoration:underline">public rules</a>. If it is ever restricted or removed, the reason will be posted right here, in plain words.</div>
     </div>
-    <h2 style="margin:22px 0 10px">Comments</h2>
-    <div class="panel" style="padding:14px 18px;color:#7a8d9c;font-size:14px">Comments are shown newest first. No comments are hidden by an algorithm.</div>
+    <h2 style="margin:22px 0 10px" id="vcomh">Comments</h2>
+    <div class="panel" id="vcom" style="padding:14px 18px;color:#7a8d9c;font-size:14px">Comments are shown newest first. No comments are hidden by an algorithm.</div>
   </div>
   <aside class="side"><h2>Up next</h2><div data-minis="6"></div></aside>
 </div>
 <footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
-<script>
-document.querySelectorAll('[data-cards]').forEach(g=>{const n=+g.dataset.cards;for(let i=1;i<=n;i++)g.insertAdjacentHTML('beforeend',
-`<a class="card" href="watch.html"><div class="thumb">Placeholder video ${i}<span class="dur">0:00</span></div><div class="meta"><h3>Example video title ${i}</h3><small>Example creator · placeholder</small></div></a>`)});
-document.querySelectorAll('[data-minis]').forEach(g=>{for(let i=1;i<=+g.dataset.minis;i++)g.insertAdjacentHTML('beforeend',
-`<a class="mini" href="watch.html"><div class="thumb">Placeholder<span class="dur">0:00</span></div><div><h3>Example up-next video ${i}</h3><small>Example creator<br>placeholder</small></div></a>`)});
-</script>
 <script src="videos.js"></script>
+<script src="ads.js"></script>
+<script src="cards.js"></script>
 <script>
 (function(){
   const params = new URLSearchParams(location.search);
-  const id = params.get('v') || (window.VIDEOS[0] && window.VIDEOS[0].id);
-  if (!id) return;
-  const known = (window.VIDEOS||[]).find(v => v.id === id) || {};
-  const auto = params.get('autoplay') === '1' ? '?autoplay=1' : '';
-  const host = params.get('host') || known.host || 'archive';
-  const src = host === 'clipplace' ? `https://clip.place/videos/embed/${encodeURIComponent(id)}${auto}` : `https://archive.org/embed/${encodeURIComponent(id)}${auto}`;
-  const p = document.getElementById('player');
-  p.style.background = '#000';
-  p.innerHTML = `<iframe src="${src}" style="width:100%;height:100%;border:0;border-radius:8px 8px 0 0" allow="autoplay; fullscreen" allowfullscreen sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>`;
-  if (known.title) document.getElementById('vtitle').textContent = known.title;
-  if (known.creator) document.getElementById('vcreator').textContent = known.creator;
-  document.getElementById('vdl').href = host === 'clipplace' ? `https://clip.place/w/${encodeURIComponent(id)}` : `https://archive.org/details/${encodeURIComponent(id)}`;
-  if (host === 'clipplace') {
-    fetch(`https://clip.place/api/v1/videos/${encodeURIComponent(id)}`).then(r => r.json()).then(v => {
-      if (!known.title && v.name) { document.getElementById('vtitle').textContent = v.name; document.title = v.name + ' - RawReel'; }
-      if (v.channel && v.channel.displayName && !known.creator) document.getElementById('vcreator').textContent = v.channel.displayName;
-      document.getElementById('vdesc').textContent = (v.description || '').slice(0, 400) || 'Hosted on clip.place (backup).';
-    }).catch(() => { document.getElementById('vdesc').textContent = 'Hosted on clip.place (backup).'; });
-    return;
+  const id = (params.get('v') || '').trim();
+  const $ = x => document.getElementById(x);
+  const p = $('player');
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  // Friendly empty state in the player area: no player, no ad.
+  function notFound(kind) {
+    const pick = kind === 'pick';
+    p.className = 'player rr-nf';
+    p.innerHTML = `<div class="rr-nf-card"><span class="orb"></span><h2>${pick ? 'Pick a video' : 'Video not found'}</h2>
+      <p>${pick ? "This link doesn't point to a video yet. Head home to choose one, or pick from Up next." : "We couldn't find a video at this link. It may have been typed wrong, or the host may have removed it."}</p>
+      <div class="rr-nf-btns"><a class="btn" href="index.html">Go to the home page</a><a class="ghost" href="upload.html">Upload a video</a></div></div>`;
+    $('vtitle').textContent = pick ? 'Pick a video' : 'Video not found';
+    $('vdesc').textContent = pick ? 'Choose any video from the home page or the Up next list.' : (id ? 'No video with the ID "' + id + '" exists on our hosts.' : '');
+    ['vrow', 'vnotice', 'vcomh', 'vcom'].forEach(x => { const e = $(x); if (e) e.hidden = true; });
+    document.title = (pick ? 'Pick a video' : 'Video not found') + ' - RawReel';
   }
+  if (!id) { notFound('pick'); return; }
+
+  const known = (window.VIDEOS || []).find(v => v.id === id) || {};
+  const host = params.get('host') || known.host || 'archive';
+  const auto = params.get('autoplay') === '1';
+  const src = host === 'clipplace'
+    ? `https://clip.place/videos/embed/${encodeURIComponent(id)}${auto ? '?autoplay=1' : ''}`
+    : `https://archive.org/embed/${encodeURIComponent(id)}${auto ? '?autoplay=1' : ''}`;
+  if (known.title) $('vtitle').textContent = known.title;
+  if (known.creator) $('vcreator').textContent = known.creator;
+  $('vdl').href = host === 'clipplace' ? `https://clip.place/w/${encodeURIComponent(id)}` : `https://archive.org/details/${encodeURIComponent(id)}`;
   document.title = (known.title || id) + ' - RawReel';
-  fetch(`https://archive.org/metadata/${encodeURIComponent(id)}/metadata`).then(r => r.json()).then(d => {
-    const m = d.result || {};
-    if (!known.title && m.title) document.getElementById('vtitle').textContent = m.title;
+
+  function loadEmbed(play) {
+    p.style.background = '#000';
+    p.innerHTML = `<iframe src="${src}${play && !auto ? (src.includes('?') ? '&' : '?') + 'autoplay=1' : ''}" style="width:100%;height:100%;border:0;border-radius:8px 8px 0 0" allow="autoplay; fullscreen" allowfullscreen sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>`;
+  }
+
+  // Sponsor pre-roll: at most one per page load, never mid-roll, always skippable.
+  function preroll(done) {
+    const cfg = window.RR_ADS || {};
+    const forced = params.get('ads') === '1';
+    const sponsors = (cfg.sponsors || []).filter(s => s && (s.name || s.message));
+    if ((!cfg.enabled && !forced) || !sponsors.length || window.__rrPrerollShown) return done(false);
+    window.__rrPrerollShown = true;
+    const maxLength = Math.min(15, Math.max(1, +cfg.maxLength || 15));
+    const skipAfter = Math.min(maxLength, Math.max(0, cfg.skipAfter == null ? 5 : +cfg.skipAfter));
+    const sp = sponsors[Math.floor(Math.random() * sponsors.length)];
+    const ad = document.createElement('div');
+    ad.className = 'rr-ad';
+    ad.innerHTML = `<div class="rr-ad-bubbles"><i></i><i></i><i></i><i></i><i></i></div>
+      <span class="rr-ad-label">Sponsor</span>
+      <a class="rr-ad-card" href="${esc(sp.link || '#')}"><span class="orb"></span><b>${esc(sp.name || 'Sponsor')}</b><span>${esc(sp.message || '')}</span><em>Learn more</em></a>
+      <div class="rr-ad-skip"><span class="rr-ad-count"></span><button type="button" class="btn rr-ad-btn" hidden>Skip ad ▶</button></div>
+      <div class="rr-ad-bar"><div></div></div>`;
+    p.innerHTML = ''; p.appendChild(ad);
+    const count = ad.querySelector('.rr-ad-count'), btn = ad.querySelector('.rr-ad-btn'), bar = ad.querySelector('.rr-ad-bar div');
+    let t = 0, finished = false;
+    const finish = () => { if (finished) return; finished = true; clearInterval(timer); ad.remove(); done(true); };
+    const tick = () => {
+      const left = Math.ceil(skipAfter - t);
+      if (left > 0) count.textContent = `You can skip in ${left}…`;
+      else { count.hidden = true; btn.hidden = false; }
+      bar.style.width = Math.min(100, t / maxLength * 100) + '%';
+      if (t >= maxLength) finish();
+    };
+    const timer = setInterval(() => { t = Math.round((t + 0.25) * 100) / 100; tick(); }, 250);
+    btn.addEventListener('click', finish);
+    tick();
+  }
+
+  function fillArchive(m) {
+    if (!known.title && m.title) { $('vtitle').textContent = m.title; document.title = m.title + ' - RawReel'; }
     const desc = (Array.isArray(m.description) ? m.description[0] : m.description) || '';
     const tmp = document.createElement('div'); tmp.innerHTML = desc;
-    document.getElementById('vdesc').textContent = (tmp.textContent.trim().slice(0, 400)) || 'Hosted on Internet Archive.';
-  }).catch(() => { document.getElementById('vdesc').textContent = 'Hosted on Internet Archive.'; });
+    $('vdesc').textContent = tmp.textContent.trim().slice(0, 400) || 'Hosted on Internet Archive.';
+  }
+  function fillClip(v) {
+    if (!known.title && v.name) { $('vtitle').textContent = v.name; document.title = v.name + ' - RawReel'; }
+    if (v.channel && v.channel.displayName && !known.creator) $('vcreator').textContent = v.channel.displayName;
+    $('vdesc').textContent = (v.description || '').slice(0, 400) || 'Hosted on clip.place (backup).';
+  }
+  const start = () => preroll(played => loadEmbed(played));
+
+  // Existence check first. A clear "doesn't exist" answer shows Not found; a network error still shows the player.
+  if (host === 'clipplace') {
+    fetch(`https://clip.place/api/v1/videos/${encodeURIComponent(id)}`).then(r => {
+      if (r.status === 404 || r.status === 400 || r.status === 410) return notFound();
+      start(); return r.ok ? r.json().then(fillClip) : null;
+    }).catch(() => { start(); $('vdesc').textContent = 'Hosted on clip.place (backup).'; });
+  } else {
+    fetch(`https://archive.org/metadata/${encodeURIComponent(id)}`).then(r => r.json()).then(d => {
+      if (!d || (typeof d === 'object' && !Object.keys(d).length) || d.is_dark) return notFound();
+      start(); fillArchive(d.metadata || {});
+    }).catch(() => { start(); $('vdesc').textContent = 'Hosted on Internet Archive.'; });
+  }
 })();
 </script>
 </body></html>

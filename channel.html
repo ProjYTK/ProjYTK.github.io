@@ -1,24 +1,52 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Channel - RawReel</title><link rel="stylesheet" href="style.css?v=3"></head>
+<title>Channel - RawReel</title><link rel="stylesheet" href="style.css?v=4"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Videos that stay up</small></a>
   <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
   <a class="btn" href="upload.html">Upload</a>
+  <a class="ghost" href="import.html">Import</a>
   <a class="ghost" href="rules.html">Rules</a>
   <a class="ghost" href="about.html">About</a>
 </header>
 <div class="banner"></div>
 <div class="chead"><div class="avatar"></div><div><h1>Example creator</h1><p>placeholder subscriber count · placeholder video count</p></div><span style="flex:1"></span><button class="btn">Subscribe</button></div>
-<div class="tabs"><span class="tab on">Videos</span><span class="tab">Playlists</span><span class="tab">About</span><span class="tab">Moderation log</span></div>
-<h2>Uploads (newest first)</h2>
-<main class="grid" data-cards="8"></main>
+<div class="tabs" role="tablist">
+  <a class="tab on" href="#videos" role="tab" data-tab="videos" aria-selected="true">Videos</a>
+  <a class="tab" href="#playlists" role="tab" data-tab="playlists" aria-selected="false">Playlists</a>
+  <a class="tab" href="#about" role="tab" data-tab="about" aria-selected="false">About</a>
+  <a class="tab" href="#modlog" role="tab" data-tab="modlog" aria-selected="false">Moderation log</a>
+</div>
+<section class="tabpane" id="pane-videos" role="tabpanel">
+  <h2>Uploads (newest first)</h2>
+  <main class="grid" data-cards="8"></main>
+</section>
+<section class="tabpane" id="pane-playlists" role="tabpanel" hidden>
+  <div class="panel tabbox empty"><span class="orb"></span><h3>No playlists yet</h3><p>When this creator groups videos into playlists, they'll show up here.</p></div>
+</section>
+<section class="tabpane" id="pane-about" role="tabpanel" hidden>
+  <div class="panel tabbox"><h3>About Example creator</h3><p>Placeholder bio. This is where a creator says who they are, what they make, and how often they post. Real creators will write their own.</p><p class="tabmeta">Joined: placeholder date · Location: placeholder · Links: placeholder</p></div>
+</section>
+<section class="tabpane" id="pane-modlog" role="tabpanel" hidden>
+  <div class="panel tabbox empty"><span class="num">✓</span><h3>Moderation log</h3><p>No moderation actions on this channel. Every action will be listed here publicly.</p><p class="tabmeta">See the <a href="rules.html">rules</a> for how enforcement works.</p></div>
+</section>
 <footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
+<script src="videos.js"></script>
+<script src="cards.js"></script>
 <script>
-document.querySelectorAll('[data-cards]').forEach(g=>{const n=+g.dataset.cards;for(let i=1;i<=n;i++)g.insertAdjacentHTML('beforeend',
-`<a class="card" href="watch.html"><div class="thumb">Placeholder video ${i}<span class="dur">0:00</span></div><div class="meta"><h3>Example video title ${i}</h3><small>Example creator · placeholder</small></div></a>`)});
-document.querySelectorAll('[data-minis]').forEach(g=>{for(let i=1;i<=+g.dataset.minis;i++)g.insertAdjacentHTML('beforeend',
-`<a class="mini" href="watch.html"><div class="thumb">Placeholder<span class="dur">0:00</span></div><div><h3>Example up-next video ${i}</h3><small>Example creator<br>placeholder</small></div></a>`)});
+(function(){
+  const tabs = [...document.querySelectorAll('.tabs .tab')];
+  function show(name, push) {
+    if (!tabs.some(t => t.dataset.tab === name)) name = 'videos';
+    tabs.forEach(t => { const on = t.dataset.tab === name; t.classList.toggle('on', on); t.setAttribute('aria-selected', on); });
+    document.querySelectorAll('.tabpane').forEach(p => p.hidden = p.id !== 'pane-' + name);
+    if (push && location.hash !== '#' + name) history.pushState(null, '', '#' + name);
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); show(t.dataset.tab, true); }));
+  window.addEventListener('hashchange', () => show(location.hash.slice(1)));
+  window.addEventListener('popstate', () => show(location.hash.slice(1)));
+  show(location.hash.slice(1));
+})();
 </script>
 </body></html>
