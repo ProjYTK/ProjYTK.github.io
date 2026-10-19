@@ -170,7 +170,7 @@
   }
 
   function buildMailto(o) {
-    return 'mailto:joesmoth178@gmail.com?subject=' + encodeURIComponent('RawReel channel import') + '&body=' + encodeURIComponent(buildMailBody(o));
+    return 'mailto:RR.Support.Agent@gmail.com?subject=' + encodeURIComponent('RawReel channel import') + '&body=' + encodeURIComponent(buildMailBody(o));
   }
 
   // Internet Archive identifiers: letters, digits, _ - . ; people often paste the whole URL, so accept that too.
@@ -203,7 +203,7 @@
         var meta = [x.privacy, x.duration, x.id && ('YouTube ID ' + x.id)].filter(Boolean).map(esc).join(' · ');
         var th = thumbs && /^[A-Za-z0-9_-]{6,}$/.test(x.id) ? '<img alt="" loading="lazy" src="https://i.ytimg.com/vi/' + esc(x.id) + '/mqdefault.jpg">' : 'No preview';
         return '<div class="imp-item" data-i="' + i + '">' +
-          '<input type="checkbox" class="imp-pick" aria-label="Import ' + esc(x.title) + '"' + (x.pick ? ' checked' : '') + '>' +
+          '<label class="imp-pickwrap"><input type="checkbox" class="imp-pick" aria-label="Import ' + esc(x.title) + '"' + (x.pick ? ' checked' : '') + '></label>' +
           '<div class="thumb imp-th">' + th + (x.duration ? '<span class="dur">' + esc(x.duration) + '</span>' : '') + '</div>' +
           '<div class="imp-txt"><h3>' + esc(x.title) + '</h3><p>' + (esc(snip) || '<i>No description</i>') + '</p>' +
           '<small>' + meta + (x.file ? ' · <b>File: ' + esc(x.file) + '</b>' : '') + '</small></div>' +

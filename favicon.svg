@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100.00" height="100.00" viewBox="0 0 100.00 100.00">
+<defs>
+  <radialGradient id="ibody" cx="0" cy="-2" r="56" fx="0" fy="2" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#B4E388"/>
+    <stop offset="0.38" stop-color="#8ECD64"/>
+    <stop offset="0.74" stop-color="#64AD44"/>
+    <stop offset="1" stop-color="#467E2F"/>
+  </radialGradient>
+  <radialGradient id="iglow" cx="0" cy="34" r="30" gradientTransform="translate(0 34) scale(1 .55) translate(0 -34)" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#E4FFC4" stop-opacity=".4"/>
+    <stop offset="1" stop-color="#E4FFC4" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="ispec" x1="0" y1="-40" x2="0" y2="-4" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/>
+    <stop offset=".55" stop-color="#FFFFFF" stop-opacity=".45"/>
+    <stop offset="1" stop-color="#FFFFFF" stop-opacity=".06"/>
+  </linearGradient>
+  <radialGradient id="irim" cx="0" cy="0" r="45" gradientUnits="userSpaceOnUse">
+    <stop offset=".8" stop-color="#2F6420" stop-opacity="0"/>
+    <stop offset="1" stop-color="#2F6420" stop-opacity=".22"/>
+  </radialGradient>
+  <filter id="iblur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.2"/></filter>
+</defs>
+<g transform="translate(50.00 48.00) scale(1.0000)"><ellipse cx="0" cy="5" rx="44" ry="44" fill="#1F3A2A" opacity=".28" filter="url(#iblur)"/><ellipse cx="0" cy="44" rx="30" ry="5" fill="#1F3A2A" opacity=".18" filter="url(#iblur)"/><circle r="45" fill="url(#ibody)"/><circle r="45" fill="url(#irim)"/><ellipse cx="0" cy="29" rx="34" ry="14" fill="url(#iglow)"/><ellipse cx="0" cy="-22" rx="30.5" ry="17.5" fill="url(#ispec)"/><ellipse cx="-17" cy="-29" rx="6" ry="3.2" transform="rotate(-28 -17 -29)" fill="#FFFFFF" opacity=".55"/><circle r="44.6" fill="none" stroke="#3E7A2A" stroke-opacity=".22" stroke-width=".8"/></g>
+</svg>

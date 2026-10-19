@@ -241,3 +241,50 @@
   .row .acts { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; width:100%; }
   .row .acts .btn, .row .acts .ghost { min-height:44px; padding:0 4px; font-size:12px; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap; }
 }
+
+/* ---- Legal pages ---- */
+.legal h1 { margin-top:2px; }
+.legal .lead { font-size:13px; font-style:italic; margin-bottom:8px; }
+.legal h2 { max-width:none; margin:26px 0 8px; padding:12px 0 0; border-top:1px solid #e3edf4; font-size:17px; color:#1f4f7a; }
+.legal p, .legal li { font-size:14px; color:#4f6577; line-height:1.6; }
+.legal p { margin:0 0 10px; }
+.legal ul, .legal ol { margin:0 0 12px; padding-left:22px; } .legal li { margin-bottom:6px; }
+.legal li::marker { color:#2a7fc6; font-weight:700; }
+.legal b { color:#2c4d68; }
+.legal a { color:#1f6fb2; text-decoration:underline; overflow-wrap:anywhere; }
+.legal blockquote { margin:6px 0 14px; padding:12px 16px 4px; border-left:4px solid #6fbaf2; border-radius:0 6px 6px 0;
+  background:linear-gradient(180deg,#f7fbfe,#eaf4fb); box-shadow:inset 0 1px 0 #fff; }
+.legal blockquote p { font-style:italic; }
+mark.ph { color:#6b4e00; font-weight:600; padding:0 4px; border-radius:3px; white-space:nowrap;
+  background:linear-gradient(180deg,#fff7b8,#ffe45c); border:1px dashed #d8a800; box-shadow:0 0 0 2px rgba(255,214,0,.25); }
+.footer-links { display:flex; justify-content:center; flex-wrap:wrap; gap:6px 18px; margin:0 0 10px; font-size:13px; font-weight:600; }
+.footer-links a { color:#1f6fb2; } .footer-links a:hover { text-decoration:underline; }
+.footer-links a[aria-current="page"] { color:#2c4d68; text-decoration:underline; }
+@media (max-width: 760px) {
+  .legal h2 { font-size:16px; margin-top:20px; }
+  .legal ul, .legal ol { padding-left:18px; }
+  mark.ph { white-space:normal; overflow-wrap:anywhere; }
+  .footer-links { gap:0; } .footer-links a { padding:12px 10px; }
+}
+
+/* ---- Phone tap targets 2 ---- */
+.imp-pickwrap { display:flex; align-items:center; justify-content:center; cursor:pointer; }
+@media (max-width: 760px) {
+  header .logo { min-height:44px; }
+  /* text inputs (doubled class beats the page's inline .field style) */
+  .doc .field.field, .doc input[type="text"], .doc input:not([type]) { min-height:44px; font-size:16px; }
+  /* buttons */
+  .doc .btn, .doc .ghost, .chead .btn { min-height:44px; display:inline-flex; align-items:center; justify-content:center; }
+  .doc .btn, .chead .btn { padding:0 18px; }
+  .imp-file > span { min-height:44px; display:inline-flex; align-items:center; }
+  .btn.imp-off { min-height:44px; }
+  .imp-bar .ghost { min-height:44px; padding:0 14px; font-size:13px; }
+  /* checkboxes: 22px box inside a 44px-tall padded label */
+  .doc input[type="checkbox"] { width:22px; height:22px; flex-shrink:0; margin:0; }
+  #sub label { display:block; position:relative; min-height:44px; padding:11px 0 11px 34px; line-height:1.45; cursor:pointer; }
+  #sub label input[type="checkbox"] { position:absolute; left:0; top:11px; }
+  .imp-own, .imp-bar label { display:flex; align-items:center; gap:10px; min-height:44px; padding:6px 0; cursor:pointer; }
+  .imp-bar label { flex-basis:100%; flex-wrap:wrap; column-gap:10px; row-gap:0; }
+  .imp-bar label small { flex-basis:100%; padding-left:32px; }
+  .imp-pickwrap { width:44px; height:44px; margin:-6px; }
+}
