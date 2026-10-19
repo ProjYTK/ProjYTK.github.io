@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Upload - YTKiller</title><link rel="stylesheet" href="style.css"></head>
+<title>Upload - RawReel</title><link rel="stylesheet" href="style.css"></head>
 <body>
 <header>
-  <a class="logo" href="index.html"><span class="orb"></span>YT<b>Killer</b></a>
+  <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Stay-up video</small></a>
   <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
   <a class="btn" href="upload.html">Upload</a>
   <a class="ghost" href="rules.html">Rules</a>
@@ -15,7 +15,7 @@
   <div class="rule"><div class="num">1</div><div><h3>Make a free Internet Archive account</h3><p>Sign up at <a href="https://archive.org/account/signup" target="_blank" rel="noopener" style="text-decoration:underline">archive.org</a>. It's free and only needs an email.</p></div></div>
   <div class="rule"><div class="num">2</div><div><h3>Upload your video there</h3><p>Click Upload on Internet Archive, add your file, title, and description, and pick a license you're comfortable with. Only upload videos you made or have the rights to.</p></div></div>
   <div class="rule"><div class="num">3</div><div><h3>Copy your video's ID</h3><p>Your video's page will look like <code>archive.org/details/<b>your-video-id</b></code>. The last part is the ID.</p></div></div>
-  <div class="rule"><div class="num">4</div><div><h3>Send it to us</h3><p>Fill this in and we'll add your video to YTKiller, usually within a day.</p></div></div>
+  <div class="rule"><div class="num">4</div><div><h3>Send it to us</h3><p>Fill this in and we'll add your video to RawReel, usually within a day.</p></div></div>
   <form id="sub" style="margin:8px 0 0 46px;display:grid;gap:10px;max-width:480px">
     <input class="field" name="id" placeholder="Internet Archive video ID" required>
     <input class="field" name="creator" placeholder="Your creator name" required>
@@ -28,7 +28,7 @@
 <script>
 document.getElementById('sub').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);
 const body=`Video ID: ${f.get('id')}\nCreator: ${f.get('creator')}\nLink: https://archive.org/details/${f.get('id')}`;
-location.href=`mailto:joesmoth178@gmail.com?subject=${encodeURIComponent('YTKiller video submission')}&body=${encodeURIComponent(body)}`;});
+location.href=`mailto:joesmoth178@gmail.com?subject=${encodeURIComponent('RawReel video submission')}&body=${encodeURIComponent(body)}`;});
 </script>
 <footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
 

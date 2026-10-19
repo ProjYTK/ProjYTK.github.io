@@ -112,3 +112,8 @@
     #sub { margin-left:0 !important; }
     .doc p[style*="margin:14px 0 0 46px"] { margin-left:0 !important; }
   }
+
+/* ---- Wordmark + tagline ---- */
+.logo .wordmark { letter-spacing:-.5px; }
+.logo .tagline { font-size:11px; font-weight:600; letter-spacing:.3px; color:#5d8fb8; text-transform:uppercase; padding:2px 7px; border:1px solid #bcd9ef; border-radius:10px; background:linear-gradient(#fff,#e6f3fc); text-shadow:none; }
+@media (max-width: 760px) { .logo .tagline { display:none; } }

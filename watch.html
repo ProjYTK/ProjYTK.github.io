@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Watch - YTKiller</title><link rel="stylesheet" href="style.css"></head>
+<title>Watch - RawReel</title><link rel="stylesheet" href="style.css"></head>
 <body>
 <header>
-  <a class="logo" href="index.html"><span class="orb"></span>YT<b>Killer</b></a>
+  <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Stay-up video</small></a>
   <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
   <a class="btn" href="upload.html">Upload</a>
   <a class="ghost" href="rules.html">Rules</a>
@@ -51,13 +51,13 @@ document.querySelectorAll('[data-minis]').forEach(g=>{for(let i=1;i<=+g.dataset.
   document.getElementById('vdl').href = host === 'clipplace' ? `https://clip.place/w/${encodeURIComponent(id)}` : `https://archive.org/details/${encodeURIComponent(id)}`;
   if (host === 'clipplace') {
     fetch(`https://clip.place/api/v1/videos/${encodeURIComponent(id)}`).then(r => r.json()).then(v => {
-      if (!known.title && v.name) { document.getElementById('vtitle').textContent = v.name; document.title = v.name + ' - YTKiller'; }
+      if (!known.title && v.name) { document.getElementById('vtitle').textContent = v.name; document.title = v.name + ' - RawReel'; }
       if (v.channel && v.channel.displayName && !known.creator) document.getElementById('vcreator').textContent = v.channel.displayName;
       document.getElementById('vdesc').textContent = (v.description || '').slice(0, 400) || 'Hosted on clip.place (backup).';
     }).catch(() => { document.getElementById('vdesc').textContent = 'Hosted on clip.place (backup).'; });
     return;
   }
-  document.title = (known.title || id) + ' - YTKiller';
+  document.title = (known.title || id) + ' - RawReel';
   fetch(`https://archive.org/metadata/${encodeURIComponent(id)}/metadata`).then(r => r.json()).then(d => {
     const m = d.result || {};
     if (!known.title && m.title) document.getElementById('vtitle').textContent = m.title;
