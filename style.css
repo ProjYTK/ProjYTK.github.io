@@ -465,3 +465,7 @@ header .btn, header .ghost { display:inline-flex; align-items:center; min-height
 .rr-cw .rr-nf-card .btn { min-height:44px; }
 .rights .credit { color:#2c4d68; }
 @media (max-width: 760px) { .rr-cw .rr-nf-card .orb { display:none; } .rr-cw .rr-nf-card h2 { font-size:17px; } .cw-tag { font-size:10px; } }
+/* RawReplay row on the RawReel home page */
+.music-row .music-card{display:block;text-decoration:none;color:inherit}
+.music-row .music-card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;display:block;background:linear-gradient(135deg,#2a7fc6,#0b2d55)}
+.music-row .music-card b{display:block;margin-top:6px}.music-row .music-card span{font-size:13px;opacity:.75}
