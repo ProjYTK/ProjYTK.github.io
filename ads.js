@@ -6,6 +6,6 @@ window.RR_ADS = {
   skipAfter: 5,   // seconds before "Skip ad" appears (clamped so it can never exceed maxLength)
   maxLength: 15,  // seconds; the ad ends on its own after this (hard cap 15)
   sponsors: [
-    { name: 'RawReel', message: 'Your ad here: sponsor RawReel', link: 'about.html' }
+    { name: 'RawReel', message: 'Your ad here: sponsor RawReel', link: 'about.html#sponsor' }
   ]
 };

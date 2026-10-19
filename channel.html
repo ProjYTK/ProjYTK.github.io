@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Channel - RawReel</title><link rel="stylesheet" href="style.css?v=5"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
+<title>Channel - RawReel</title><link rel="stylesheet" href="style.css?v=6"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Videos that stay up</small></a>
-  <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
-  <a class="btn" href="upload.html">Upload</a>
-  <a class="ghost" href="import.html">Import</a>
-  <a class="ghost" href="rules.html">Rules</a>
-  <a class="ghost" href="about.html">About</a>
+  <form class="search" role="search" onsubmit="return false"><input placeholder="Search videos" aria-label="Search videos"><button>Search</button></form>
+  <nav class="mainnav" aria-label="Main">
+    <a class="ghost nav-home" href="index.html">Home</a>
+    <a class="btn" href="upload.html">Upload</a>
+    <details class="more">
+      <summary class="ghost">More</summary>
+      <div class="more-menu">
+        <a href="import.html">Bring your channel</a>
+        <a href="rules.html">Rules</a>
+        <a href="about.html">About RawReel</a>
+        <a href="about.html#sponsor">Sponsor RawReel</a>
+      </div>
+    </details>
+  </nav>
 </header>
 <div class="banner"></div>
-<div class="chead"><div class="avatar"></div><div><h1>Example creator</h1><p>placeholder subscriber count · placeholder video count</p></div><span style="flex:1"></span><button class="btn">Subscribe</button></div>
+<div class="chead"><div class="avatar"></div><div><h1>Example creator</h1><p>placeholder subscriber count · placeholder video count</p></div><button class="btn csub">Subscribe</button></div>
 <div class="tabs" role="tablist">
   <a class="tab on" href="#videos" role="tab" data-tab="videos" aria-selected="true">Videos</a>
   <a class="tab" href="#playlists" role="tab" data-tab="playlists" aria-selected="false">Playlists</a>
@@ -19,7 +28,7 @@
   <a class="tab" href="#modlog" role="tab" data-tab="modlog" aria-selected="false">Moderation log</a>
 </div>
 <section class="tabpane" id="pane-videos" role="tabpanel">
-  <h2>Uploads (newest first)</h2>
+  <h2>Uploads <small class="h2note">newest first</small></h2>
   <main class="grid" data-cards="8"></main>
 </section>
 <section class="tabpane" id="pane-playlists" role="tabpanel" hidden>
@@ -29,7 +38,7 @@
   <div class="panel tabbox"><h3>About Example creator</h3><p>Placeholder bio. This is where a creator says who they are, what they make, and how often they post. Real creators will write their own.</p><p class="tabmeta">Joined: placeholder date · Location: placeholder · Links: placeholder</p></div>
 </section>
 <section class="tabpane" id="pane-modlog" role="tabpanel" hidden>
-  <div class="panel tabbox empty"><span class="num">✓</span><h3>Moderation log</h3><p>No moderation actions on this channel. Every action will be listed here publicly.</p><p class="tabmeta">See the <a href="rules.html">rules</a> for how enforcement works.</p></div>
+  <div class="panel tabbox empty"><span class="num">✓</span><h3>Moderation log</h3><p>No moderation actions on this channel. Any action would be listed here, with the <a href="rules.html">rule</a> it falls under.</p></div>
 </section>
 <footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
 <script src="videos.js"></script>
@@ -49,4 +58,5 @@
   show(location.hash.slice(1));
 })();
 </script>
+<script src="nav.js"></script>
 </body></html>

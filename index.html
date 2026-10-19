@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home - RawReel</title><link rel="stylesheet" href="style.css?v=5"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
+<title>Home - RawReel</title><link rel="stylesheet" href="style.css?v=6"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Videos that stay up</small></a>
-  <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
-  <a class="btn" href="upload.html">Upload</a>
-  <a class="ghost" href="import.html">Import</a>
-  <a class="ghost" href="rules.html">Rules</a>
-  <a class="ghost" href="about.html">About</a>
+  <form class="search" role="search" onsubmit="return false"><input placeholder="Search videos" aria-label="Search videos"><button>Search</button></form>
+  <nav class="mainnav" aria-label="Main">
+    <a class="ghost nav-home" href="index.html" aria-current="page">Home</a>
+    <a class="btn" href="upload.html">Upload</a>
+    <details class="more">
+      <summary class="ghost">More</summary>
+      <div class="more-menu">
+        <a href="import.html">Bring your channel</a>
+        <a href="rules.html">Rules</a>
+        <a href="about.html">About RawReel</a>
+        <a href="about.html#sponsor">Sponsor RawReel</a>
+      </div>
+    </details>
+  </nav>
 </header>
 
 <section class="hero">
   <h1><strong>Say it. Post it.</strong> It stays up.</h1>
-  <p>A video site with clear, public rules, no shadowbans, and no surprise demonetization.</p>
-  <div class="pillars">
-    <span class="pill">Written rules, applied the same to everyone</span>
-    <span class="pill">Every removal explained publicly</span>
-    <span class="pill">Chronological feed, no hidden algorithm</span>
-    <span class="pill">Creators own and can export their videos</span>
-  </div>
+  <p>Clear public rules, no shadowbans, no surprise demonetization. <a class="hero-more" href="about.html">How it works</a></p>
 </section>
 <h2>Latest uploads</h2>
 <main class="grid" data-cards="8"></main>
+<aside class="callout"><span class="orb"></span><p><b>Already on YouTube?</b> Bring your channel and keep your titles and descriptions.</p><a class="ghost" href="import.html">Bring your channel</a></aside>
 
 <footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
 <script src="videos.js"></script>
 <script src="cards.js"></script>
+<script src="nav.js"></script>
 </body></html>

@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bring your channel - RawReel</title><link rel="stylesheet" href="style.css?v=5"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
+<title>Bring your channel - RawReel</title><link rel="stylesheet" href="style.css?v=6"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Videos that stay up</small></a>
-  <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
-  <a class="btn" href="upload.html">Upload</a>
-  <a class="ghost" href="import.html">Import</a>
-  <a class="ghost" href="rules.html">Rules</a>
-  <a class="ghost" href="about.html">About</a>
+  <form class="search" role="search" onsubmit="return false"><input placeholder="Search videos" aria-label="Search videos"><button>Search</button></form>
+  <nav class="mainnav" aria-label="Main">
+    <a class="ghost nav-home" href="index.html">Home</a>
+    <a class="btn" href="upload.html">Upload</a>
+    <details class="more">
+      <summary class="ghost">More</summary>
+      <div class="more-menu">
+        <a href="import.html" aria-current="page">Bring your channel</a>
+        <a href="rules.html">Rules</a>
+        <a href="about.html">About RawReel</a>
+        <a href="about.html#sponsor">Sponsor RawReel</a>
+      </div>
+    </details>
+  </nav>
 </header>
 <div class="panel doc imp">
   <h1><strong>Bring your channel.</strong> Keep everything you made.</h1>
-  <p class="lead">Move your YouTube channel to RawReel and keep your titles, descriptions and thumbnails. You don't have to start over from zero.</p>
-  <div class="pillars">
-    <span class="pill">Titles and descriptions come with you</span>
-    <span class="pill">Your files are read in your browser, never uploaded by us</span>
-    <span class="pill">Free, no account needed yet</span>
-  </div>
-  <div class="imp-warn"><b>Only your own videos.</b> This tool is for moving videos you made or have the rights to post. Importing someone else's channel or re-uploads of other people's work isn't allowed and will be taken down under the <a href="rules.html">rules</a>.</div>
+  <p class="lead">Move your YouTube channel to RawReel and keep your titles, descriptions and thumbnails. Free, and your files are read in your browser only.</p>
+  <div class="imp-warn"><b>Only your own videos.</b> Importing someone else's channel or re-uploads isn't allowed and will be taken down under the <a href="rules.html">rules</a>.</div>
 
   <h2 class="imp-h"><span>Path A: Export with Google Takeout</span><span class="imp-badge now">Available now</span></h2>
-  <p class="imp-sub">Google Takeout is Google's own tool for downloading a copy of your data, including the original video files and a spreadsheet of your video details.</p>
+  <p class="imp-sub">Google Takeout is Google's own tool for downloading your original video files and a spreadsheet of their details.</p>
   <div class="rule"><div class="num">1</div><div><h3>Open Google Takeout</h3><p>Go to <a href="https://takeout.google.com" target="_blank" rel="noopener">takeout.google.com</a> and sign in with the Google account that owns the channel. If your channel is a Brand Account, switch to that account first (top-right picture), or the export will come back without your videos.</p></div></div>
   <div class="rule"><div class="num">2</div><div><h3>Deselect all, then pick YouTube</h3><p>Click <b>Deselect all</b> at the top of the list, scroll down and tick only <b>YouTube and YouTube Music</b>.</p></div></div>
   <div class="rule"><div class="num">3</div><div><h3>Choose videos and video metadata</h3><p>Under YouTube and YouTube Music, click <b>All YouTube data included</b>, click <b>Deselect all</b> in that window, then tick <b>videos</b> and <b>video metadata</b> and click OK. Leave <b>Multiple formats</b> as it is; video metadata comes as CSV.</p></div></div>
@@ -30,7 +34,7 @@
     <ul class="imp-tree"><li><code>videos/</code> your video files, named after each title (long titles are cut short)</li>
     <li><code>video metadata/videos.csv</code> one row per video: <i>Video ID, Video Title (Original), Video Description (Original), Privacy, Video State, Approx Duration (ms), Video Create Timestamp, Channel ID</i> and more. Large channels get several <code>videos…csv</code> files; pick them all below.</li></ul>
     <p class="imp-note">Google changes folder and column names now and then, so the helper below accepts close variations, and JSON too.</p></div></div>
-  <div class="rule"><div class="num">6</div><div><h3>Choose your files here</h3><p>Pick your <code>videos.csv</code>. Optionally pick the video files too, and we'll match each one to its title. Everything is read on your device. Nothing is sent anywhere until you press Submit, and then only the titles and IDs go in an email.</p></div></div>
+  <div class="rule"><div class="num">6</div><div><h3>Choose your files here</h3><p>Pick your <code>videos.csv</code>, and optionally the video files so we can match them to titles.</p></div></div>
 
   <div class="imp-box">
     <div class="imp-pickers">
@@ -41,38 +45,33 @@
     <p class="imp-status" id="imp-status" aria-live="polite">No file chosen yet.</p>
     <form id="imp-form">
       <div id="imp-results" hidden>
-        <div class="imp-bar"><b id="imp-count"></b><span style="flex:1"></span>
+        <div class="imp-bar"><b id="imp-count"></b><span class="grow"></span>
           <label><input type="checkbox" id="imp-thumbs"> Show thumbnails <small>(loads them from YouTube's image server)</small></label>
           <button type="button" class="ghost" id="imp-all">All</button><button type="button" class="ghost" id="imp-none">None</button></div>
         <div class="imp-list" id="imp-list"></div>
       </div>
       <div class="imp-send">
         <label class="imp-own"><input type="checkbox" required> I own these videos or have the rights to post them.</label>
-        <p>For now, upload each video you ticked to your own free Internet Archive account (<a href="upload.html">here's how</a>), then paste its Archive ID in the box next to it and click Submit. We'll add them to your RawReel channel, usually within a day.</p>
+        <p>Upload each ticked video to your free Internet Archive account (<a href="upload.html">here's how</a>), paste its Archive ID next to it, and submit. We'll add them within a day.</p>
         <input class="field" id="imp-creator" placeholder="Your creator name" required>
         <button class="btn">Submit</button>
         <p class="imp-err" id="imp-err" aria-live="polite"></p>
-        <p class="imp-fine">Submitting opens your email app with the subject "RawReel channel import" and each title plus its Archive ID filled in, addressed to RR.Support.Agent@gmail.com.</p>
+        <p class="imp-fine">Opens your email app with each title and Archive ID filled in, addressed to RR.Support.Agent@gmail.com.</p>
       </div>
     </form>
   </div>
 
   <h2 class="imp-h"><span>Path B: One-click channel sync</span><span class="imp-badge soon">Coming soon</span></h2>
-  <p class="imp-sub">Paste your channel link and RawReel copies your whole channel, then keeps it synced: every new YouTube upload shows up here too.</p>
-  <div class="imp-sync">
-    <input class="field" placeholder="https://www.youtube.com/@yourchannel" disabled aria-label="YouTube channel link">
-    <button class="btn imp-off" disabled>Sync my channel <span class="imp-badge soon">Soon</span></button>
-  </div>
-  <div class="rule"><div class="num">✓</div><div><h3>We check it's really your channel</h3><p>So nobody can import a channel they don't own, we'll give you a short code like <code>RAWREEL-7K3Q</code> to paste into your YouTube channel description. We check the description, start the copy, and then you can delete the code.</p></div></div>
+  <p class="imp-sub">Paste your channel link and RawReel copies your channel and keeps new uploads in sync. To prove it's yours, you'll paste a short code like <code>RAWREEL-7K3Q</code> into your channel description first.</p>
 
   <h2 class="imp-h"><span>Questions</span></h2>
-  <div class="rule"><div class="num">?</div><div><h3>What comes over?</h3><p>Your video files, titles and descriptions. Thumbnails too. Takeout doesn't include them, so we copy your public YouTube thumbnail using the video ID you send us. Views, likes, comments and subscribers stay on YouTube. Those numbers belong to YouTube's systems and can't be moved, so you'll start fresh here and can tell your audience where to find you.</p></div></div>
-  <div class="rule"><div class="num">?</div><div><h3>Is my data private?</h3><p>Yes. Your Takeout files are read by your own browser on your own device. RawReel never receives the CSV or your video files. Only what you choose to email us (titles, Archive IDs, YouTube IDs) is sent, and only when you press Submit.</p></div></div>
-  <div class="rule"><div class="num">?</div><div><h3>Can I import someone else's videos?</h3><p>No. Only import videos you made or have the rights to post. Copied videos get taken down when the owner reports them, as explained on the <a href="rules.html">rules</a> page, and the removal is noted publicly like any other.</p></div></div>
-  <div class="rule"><div class="num">?</div><div><h3>Do I have to leave YouTube?</h3><p>No. Importing copies your videos. Your YouTube channel stays exactly as it is.</p></div></div>
+  <details class="faq"><summary>What comes over?</summary><p>Your video files, titles and descriptions. Thumbnails too: Takeout doesn't include them, so we copy your public YouTube thumbnail by video ID. Views, likes, comments and subscribers can't be moved, so you start fresh here.</p></details>
+  <details class="faq"><summary>Is my data private?</summary><p>Yes. Your Takeout files are read by your browser on your device; RawReel never receives the CSV or video files. Only the titles and IDs you email us are sent, when you press Submit.</p></details>
+  <details class="faq"><summary>Can I import someone else's videos?</summary><p>No. Copied videos are taken down when the owner reports them, per the <a href="rules.html">rules</a>, and the removal is noted publicly.</p></details>
+  <details class="faq"><summary>Do I have to leave YouTube?</summary><p>No. Importing copies your videos. Your YouTube channel stays exactly as it is.</p></details>
 </div>
-<style>.field{padding:9px 12px;border:1px solid #9fc3dc;border-radius:4px;box-shadow:inset 0 1px 3px rgba(0,0,0,.1);font-size:14px}</style>
 <script src="import.js"></script>
 <footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
 
+<script src="nav.js"></script>
 </body></html>

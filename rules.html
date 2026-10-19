@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rules - RawReel</title><link rel="stylesheet" href="style.css?v=5"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
+<title>Rules - RawReel</title><link rel="stylesheet" href="style.css?v=6"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Videos that stay up</small></a>
-  <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
-  <a class="btn" href="upload.html">Upload</a>
-  <a class="ghost" href="import.html">Import</a>
-  <a class="ghost" href="rules.html">Rules</a>
-  <a class="ghost" href="about.html">About</a>
+  <form class="search" role="search" onsubmit="return false"><input placeholder="Search videos" aria-label="Search videos"><button>Search</button></form>
+  <nav class="mainnav" aria-label="Main">
+    <a class="ghost nav-home" href="index.html">Home</a>
+    <a class="btn" href="upload.html">Upload</a>
+    <details class="more">
+      <summary class="ghost">More</summary>
+      <div class="more-menu">
+        <a href="import.html">Bring your channel</a>
+        <a href="rules.html" aria-current="page">Rules</a>
+        <a href="about.html">About RawReel</a>
+        <a href="about.html#sponsor">Sponsor RawReel</a>
+      </div>
+    </details>
+  </nav>
 </header>
 <div class="panel doc">
   <span class="draft">Draft rules for discussion, not final</span>
   <h1><strong>The rules.</strong> All of them.</h1>
-  <p class="lead">This is the whole list. If a rule isn't written here, we don't enforce it, and it applies the same to every creator, big or small.</p>
+  <p class="lead">If a rule isn't written here, we don't enforce it. Same rules for every creator.</p>
   <div class="rule"><div class="num">1</div><div><h3>Nothing illegal</h3><p>No content that breaks US law, like child exploitation, real threats of violence, or pirated material that gets a valid legal takedown.</p></div></div>
   <div class="rule"><div class="num">2</div><div><h3>No doxxing or targeted harassment</h3><p>Don't post people's private info or organize attacks on a specific person.</p></div></div>
   <div class="rule"><div class="num">3</div><div><h3>Label adult content</h3><p>Graphic or adult videos are allowed if they're marked, so viewers can choose to see them.</p></div></div>
   <div class="rule"><div class="num">4</div><div><h3>No spam or scams</h3><p>No fake giveaways, phishing links, or mass-uploaded junk.</p></div></div>
   <div class="rule"><div class="num">5</div><div><h3>Opinions are not a violation</h3><p>Unpopular, controversial, or political views are never removed just for being controversial.</p></div></div>
-  <h2 style="margin:24px 0 8px;padding:0">How enforcement works</h2>
+  <h2 class="doc-h">How enforcement works</h2>
   <div class="rule"><div class="num">✓</div><div><h3>Every action is public</h3><p>When a video is restricted or removed, the rule number and the reason are posted on the video's page and in the creator's moderation log.</p></div></div>
   <div class="rule"><div class="num">✓</div><div><h3>No shadowbans</h3><p>Videos are never secretly hidden from search or feeds. If we limit something, we say so.</p></div></div>
   <div class="rule"><div class="num">✓</div><div><h3>You can appeal, and you can leave</h3><p>Every action can be appealed at <a href="mailto:RR.Support.Agent@gmail.com">RR.Support.Agent@gmail.com</a>, and creators can download all of their videos at any time.</p></div></div>
-<div class="rule"><div class="num">©</div><div><h3>Copyright strikes</h3><p>Three uncontested DMCA strikes close an account.</p></div></div>
-<div class="rule"><div class="num">!</div><div><h3>Where your videos live</h3><p>While we're small, videos are stored with outside hosts like Internet Archive, so their terms also apply. We'll always tell you if a host removes something, and we're working toward running our own servers.</p></div></div>
+  <div class="rule"><div class="num">©</div><div><h3>Copyright strikes</h3><p>Three uncontested DMCA strikes close an account.</p></div></div>
+  <div class="rule"><div class="num">!</div><div><h3>Outside hosts</h3><p>Videos are stored with hosts like Internet Archive for now, so their terms apply too. If a host removes something, we'll tell you.</p></div></div>
 </div>
 <footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
 
+<script src="nav.js"></script>
 </body></html>

@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=5"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
+<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=6"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Videos that stay up</small></a>
-  <form class="search" onsubmit="return false"><input placeholder="Search videos"><button>Search</button></form>
-  <a class="btn" href="upload.html">Upload</a>
-  <a class="ghost" href="import.html">Import</a>
-  <a class="ghost" href="rules.html">Rules</a>
-  <a class="ghost" href="about.html">About</a>
+  <form class="search" role="search" onsubmit="return false"><input placeholder="Search videos" aria-label="Search videos"><button>Search</button></form>
+  <nav class="mainnav" aria-label="Main">
+    <a class="ghost nav-home" href="index.html">Home</a>
+    <a class="btn" href="upload.html">Upload</a>
+    <details class="more">
+      <summary class="ghost">More</summary>
+      <div class="more-menu">
+        <a href="import.html">Bring your channel</a>
+        <a href="rules.html">Rules</a>
+        <a href="about.html">About RawReel</a>
+        <a href="about.html#sponsor">Sponsor RawReel</a>
+      </div>
+    </details>
+  </nav>
 </header>
 <div class="wrap">
-  <div style="flex:1">
+  <div class="wmain">
     <div class="panel">
       <div class="player" id="player"><div class="play"></div><div class="pbar"></div></div>
       <div class="vinfo">
         <h1 id="vtitle">Example video title</h1>
-        <div class="row" id="vrow"><a href="channel.html" class="avatar"></a><div><a href="channel.html"><b style="color:#1f4f7a" id="vcreator">Example creator</b></a><br>placeholder subscriber count</div>
-          <span style="flex:1"></span><div class="acts"><button class="btn">Subscribe</button><button class="ghost">Like</button><button class="ghost">Share</button><a class="ghost" id="vdl" href="#" target="_blank" rel="noopener">Download</a></div></div>
-        <p id="vdesc" style="color:#4f6577;font-size:14px;margin:14px 0 0">Placeholder description. Uploaded videos will show their real description, upload date, and view count here.</p>
+        <div class="row" id="vrow"><a href="channel.html" class="avatar"></a><div><a href="channel.html"><b class="vcreator" id="vcreator">Example creator</b></a><br>placeholder subscriber count</div>
+          <div class="acts"><button class="btn">Subscribe</button><button class="ghost">Like</button><button class="ghost">Share</button><a class="ghost" id="vdl" href="#" target="_blank" rel="noopener">Download</a></div></div>
+        <p id="vdesc" class="vdesc">Placeholder description.</p>
       </div>
-      <div class="notice" id="vnotice">This video follows the <a href="rules.html" style="text-decoration:underline">public rules</a>. If it is ever restricted or removed, the reason will be posted right here, in plain words.</div>
+      <div class="notice" id="vnotice">Follows the public <a href="rules.html">rules</a>. If it's ever restricted, the reason will show here.</div>
     </div>
-    <h2 style="margin:22px 0 10px" id="vcomh">Comments</h2>
-    <div class="panel" id="vcom" style="padding:14px 18px;color:#7a8d9c;font-size:14px">Comments are shown newest first. No comments are hidden by an algorithm.</div>
+    <h2 class="vcomh" id="vcomh">Comments</h2>
+    <div class="panel vcom" id="vcom">No comments yet. Newest first, nothing hidden.</div>
   </div>
   <aside class="side"><h2>Up next</h2><div data-minis="6"></div></aside>
 </div>
@@ -56,13 +65,61 @@
   const known = (window.VIDEOS || []).find(v => v.id === id) || {};
   const host = params.get('host') || known.host || 'archive';
   const auto = params.get('autoplay') === '1';
-  const src = host === 'clipplace'
-    ? `https://clip.place/videos/embed/${encodeURIComponent(id)}${auto ? '?autoplay=1' : ''}`
-    : `https://archive.org/embed/${encodeURIComponent(id)}${auto ? '?autoplay=1' : ''}`;
+  // clip.place keeps its iframe embed; Internet Archive videos use our own <video> player (loadNative below).
+  const src = `https://clip.place/videos/embed/${encodeURIComponent(id)}${auto ? '?autoplay=1' : ''}`;
   if (known.title) $('vtitle').textContent = known.title;
   if (known.creator) $('vcreator').textContent = known.creator;
   $('vdl').href = host === 'clipplace' ? `https://clip.place/w/${encodeURIComponent(id)}` : `https://archive.org/details/${encodeURIComponent(id)}`;
   document.title = (known.title || id) + ' - RawReel';
+
+  // Message card in the player area that keeps the video's title and info (used when there is no playable file, or the host can't be reached).
+  function playerMessage(title, text, btns) {
+    p.className = 'player rr-nf';
+    p.innerHTML = `<div class="rr-nf-card"><span class="orb"></span><h2>${esc(title)}</h2><p>${esc(text)}</p><div class="rr-nf-btns">${btns}</div></div>`;
+  }
+
+  // Internet Archive: pick an .mp4 from the item's file list.
+  // Prefer an original upload that isn't an '.ia.mp4' derivative, then the '_512kb.mp4' derivative, then any .mp4.
+  // Returns every .mp4 in that order, so the player can fall back to the next one if a file won't play.
+  function pickMp4(files) {
+    const mp4 = (files || []).filter(f => f && /\.mp4$/i.test(f.name || ''));
+    const notIa = f => !/\.ia\.mp4$/i.test(f.name);
+    const rank = f => notIa(f) && f.source === 'original' ? 0 : /_512kb\.mp4$/i.test(f.name) ? 1 : notIa(f) ? 2 : 3;
+    return mp4.map((f, i) => [rank(f), i, f]).sort((a, b) => a[0] - b[0] || a[1] - b[1]).map(x => x[2]);
+  }
+  const iaFileUrl = name => `https://archive.org/download/${encodeURIComponent(id)}/${name.split('/').map(encodeURIComponent).join('/')}`;
+
+  // Our own HTML5 player for Internet Archive videos: no related videos, nothing to wander off to.
+  function setDownload(f) { $('vdl').href = iaFileUrl(f.name); $('vdl').setAttribute('download', f.name.split('/').pop()); }
+  function loadNative(list, play, retried) {
+    const fileUrl = iaFileUrl(list[0].name);
+    p.className = 'player rr-native';
+    p.style.background = '';
+    p.innerHTML = '';
+    const v = document.createElement('video');
+    v.className = 'rr-video';
+    v.controls = true;
+    v.playsInline = true;
+    v.setAttribute('playsinline', '');
+    v.preload = 'metadata';
+    v.poster = `https://archive.org/services/img/${encodeURIComponent(id)}`;
+    v.src = fileUrl;
+    v.addEventListener('error', () => {
+      if (!v.error) return;
+      if (!retried) return loadNative(list, play, true);  // archive.org hiccups now and then: one retry of the same file
+      if (list.length > 1) { setDownload(list[1]); return loadNative(list.slice(1), play); }
+      playerMessage("This video won't play here", 'The file could not be loaded from Internet Archive. You can still open it directly.',
+        `<a class="btn" href="${esc(fileUrl)}" target="_blank" rel="noopener">Open the video file</a><a class="ghost" href="index.html">Go to the home page</a>`);
+    });
+    // When it ends, stay put: no suggestions, no redirect. Just show the poster frame again.
+    v.addEventListener('ended', () => { v.currentTime = 0; v.load(); });
+    p.appendChild(v);
+    if (auto || play) {
+      // Try with sound first; browsers that block unmuted autoplay get a muted start instead.
+      const pr = v.play();
+      if (pr && pr.catch) pr.catch(() => { v.muted = true; v.play().catch(() => {}); });
+    }
+  }
 
   function loadEmbed(play) {
     p.style.background = '#000';
@@ -113,7 +170,7 @@
     if (v.channel && v.channel.displayName && !known.creator) $('vcreator').textContent = v.channel.displayName;
     $('vdesc').textContent = (v.description || '').slice(0, 400) || 'Hosted on clip.place (backup).';
   }
-  const start = () => preroll(played => loadEmbed(played));
+  const start = load => preroll(played => (load || loadEmbed)(played));
 
   // Existence check first. A clear "doesn't exist" answer shows Not found; a network error still shows the player.
   if (host === 'clipplace') {
@@ -124,9 +181,21 @@
   } else {
     fetch(`https://archive.org/metadata/${encodeURIComponent(id)}`).then(r => r.json()).then(d => {
       if (!d || (typeof d === 'object' && !Object.keys(d).length) || d.is_dark) return notFound();
-      start(); fillArchive(d.metadata || {});
-    }).catch(() => { start(); $('vdesc').textContent = 'Hosted on Internet Archive.'; });
+      fillArchive(d.metadata || {});
+      const files = pickMp4(d.files);
+      if (!files.length) {
+        return playerMessage('No playable video file', "This Internet Archive item doesn't have an .mp4 file we can play here.",
+          `<a class="btn" href="https://archive.org/details/${encodeURIComponent(id)}" target="_blank" rel="noopener">Open on Internet Archive</a><a class="ghost" href="index.html">Go to the home page</a>`);
+      }
+      setDownload(files[0]);
+      start(played => loadNative(files, played));
+    }).catch(() => {
+      $('vdesc').textContent = 'Hosted on Internet Archive.';
+      playerMessage("Couldn't reach Internet Archive", 'The video host did not answer. Check your connection and try again.',
+        `<button type="button" class="btn" onclick="location.reload()">Try again</button><a class="ghost" href="index.html">Go to the home page</a>`);
+    });
   }
 })();
 </script>
+<script src="nav.js"></script>
 </body></html>
