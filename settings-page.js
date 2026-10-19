@@ -1,0 +1,26 @@
+// settings.html: binds every control to RRS (settings.js). Changes save and apply instantly.
+(function () {
+  var S = window.RRS; if (!S) return;
+  var msg = document.getElementById('s-msg'), mt = 0;
+  function say(t) { msg.textContent = t; clearTimeout(mt); mt = setTimeout(function () { msg.textContent = ''; }, 2500); }
+  function fill() {
+    var a = S.all();
+    document.querySelectorAll('.set-sec input, .set-sec select').forEach(function (el) {
+      var k = el.name; if (!k || !(k in a)) return;
+      if (el.type === 'radio') el.checked = String(a[k]) === el.value;
+      else if (el.type === 'checkbox') el.checked = !!a[k];
+      else el.value = String(a[k]);
+    });
+    document.getElementById('s-volume-o').textContent = a.volume + '%';
+  }
+  document.querySelectorAll('.set-sec input, .set-sec select').forEach(function (el) {
+    el.addEventListener(el.type === 'range' ? 'input' : 'change', function () {
+      var v = el.type === 'checkbox' ? el.checked : el.type === 'range' ? +el.value : el.value;
+      S.set(el.name, v); if (el.type === 'range') document.getElementById('s-volume-o').textContent = v + '%';
+      say('Saved');
+    });
+  });
+  document.getElementById('s-clear').addEventListener('click', function () { S.clearHistory(); say('Watch history cleared'); });
+  document.getElementById('s-reset').addEventListener('click', function () { if (!confirm('Reset all settings to the defaults?')) return; S.reset(); fill(); say('Settings reset'); });
+  fill();
+})();

@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=9"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/watch.html"><meta property="og:url" content="https://rawreel.github.io/watch.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
+<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=10"><script src="settings.js?v=10"></script><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/watch.html"><meta property="og:url" content="https://rawreel.github.io/watch.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Backed up for good</small></a>
-  <form class="search" role="search" onsubmit="return false"><input placeholder="Search classics and channels" aria-label="Search"><button>Search</button></form>
+  <form class="search" role="search" action="search.html" method="get"><input type="search" name="q" placeholder="Search classics and channels" aria-label="Search classics and channels" enterkeyhint="search"><button>Search</button></form>
   <nav class="mainnav" aria-label="Main">
     <a class="ghost nav-home" href="index.html">Home</a>
     <a class="ghost" href="classics.html">Classics</a>
+    <a class="ghost" href="replay.html">Music</a>
+    <a class="ghost nav-submit" href="upload.html">Submit</a>
     <a class="btn" href="import.html">Back up</a>
     <details class="more">
       <summary class="ghost">More</summary>
       <div class="more-menu">
         <a href="upload.html">Submit a video</a>
+        <a href="submit.html">Share your music</a>
+        <a href="replay-rules.html">Music rules</a>
         <a href="rules.html">Rules</a>
         <a href="about.html">About RawReel</a>
+        <a href="faq.html">FAQ</a>
         <a href="about.html#sponsor">Sponsor RawReel</a>
+        <hr>
+        <a href="signin.html" data-auth="out">Sign in</a>
+        <a href="signup.html" data-auth="out">Sign up</a>
+        <a href="account.html">My account</a>
+        <a href="my-channel.html">My channel</a>
+        <a href="my-uploads.html">My uploads</a>
+        <a href="subscriptions.html">Subscriptions</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="settings.html"><span aria-hidden="true">⚙</span> Settings</a>
+        <button type="button" class="rr-theme-toggle">Theme: Light</button>
       </div>
     </details>
   </nav>
@@ -39,10 +54,10 @@
   </div>
   <aside class="side"><h2>Up next</h2><div data-minis="6"></div></aside>
 </div>
-<footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
-<script src="videos.js?v=9"></script>
-<script src="ads.js?v=9"></script>
-<script src="cards.js?v=9"></script>
+<footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data. · <a href="faq.html">FAQ</a></footer>
+<script src="videos.js?v=10"></script>
+<script src="ads.js?v=10"></script>
+<script src="cards.js?v=10"></script>
 <script>
 (function(){
   const params = new URLSearchParams(location.search);
@@ -75,7 +90,8 @@
   if (known.title) $('vtitle').textContent = known.title;
   if (known.creator) $('vcreator').textContent = known.creator;
   { const dl = window.rrDateLine ? window.rrDateLine(known) : ''; if (dl) { $('vdate').textContent = dl; $('vdate').hidden = false; } }
-  if (known.silent) $('vdl').hidden = true;  // the file still has the uncleared music
+  // silent:true: the file still has the uncleared music. Remove the Download anchor from the DOM entirely (no href to the file anywhere).
+  if (known.silent) { const d = $('vdl'); if (d) d.remove(); }
   if (known.category === 'classic') {
     $('vsubline').textContent = 'Director'; const sb = document.querySelector('.acts .btn'); if (sb) sb.hidden = true;
     // The release year shows on the line under the title (#vdate).
@@ -90,7 +106,7 @@
       <p>Source: <a href="${esc(known.source || 'https://archive.org/details/' + encodeURIComponent(id))}" target="_blank" rel="noopener">Internet Archive item ${esc(id)}</a></p>`;
     r.hidden = false;
   }
-  $('vdl').href = host === 'clipplace' ? `https://clip.place/w/${encodeURIComponent(id)}` : `https://archive.org/details/${encodeURIComponent(id)}`;
+  if ($('vdl')) $('vdl').href = host === 'clipplace' ? `https://clip.place/w/${encodeURIComponent(id)}` : `https://archive.org/details/${encodeURIComponent(id)}`;
   document.title = (known.title || id) + ' - RawReel';
 
   // Message card in the player area that keeps the video's title and info (used when there is no playable file, or the host can't be reached).
@@ -126,15 +142,31 @@
   }
   function addSilentControls(v) {
     const fmt = t => { t = Math.max(0, Math.floor(t || 0)); const h = Math.floor(t / 3600), m = Math.floor(t / 60) % 60, x = String(t % 60).padStart(2, '0'); return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + x; };
-    p.insertAdjacentHTML('beforeend', `<span class="rr-silent-note">Shown silent: the added music isn't cleared.</span>
-      <div class="rr-ctl"><button type="button" class="rr-ctl-play" aria-label="Play">▶</button>
+    // The silent note sits under the video (never over the picture).
+    if (!document.getElementById('rr-silent-note')) p.insertAdjacentHTML('afterend', `<p class="rr-silent-note" id="rr-silent-note">Shown silent: the added music isn't cleared.</p>`);
+    p.insertAdjacentHTML('beforeend', `<div class="rr-ctl"><button type="button" class="rr-ctl-play" aria-label="Play">▶</button>
       <span class="rr-ctl-time">0:00 / 0:00</span>
       <input type="range" class="rr-ctl-seek" min="0" max="1000" value="0" step="1" aria-label="Seek">
       <button type="button" class="rr-ctl-fs" aria-label="Full screen">⛶</button></div>`);
     const play = p.querySelector('.rr-ctl-play'), time = p.querySelector('.rr-ctl-time'), seek = p.querySelector('.rr-ctl-seek'), fs = p.querySelector('.rr-ctl-fs');
     const toggle = () => { v.muted = true; v.volume = 0; v.paused ? v.play().catch(() => {}) : v.pause(); };
     play.addEventListener('click', toggle);
-    v.addEventListener('click', toggle);
+    // A tap on an idle (faded) player only brings the controls back; the next tap plays/pauses.
+    // On touch screens a tap on the picture only shows the controls (like other phone players); the ▶ button plays/pauses.
+    let lastPtr = 'mouse'; v.addEventListener('pointerdown', e => { lastPtr = e.pointerType; });
+    v.addEventListener('click', () => { if (wasIdle || lastPtr === 'touch') return; toggle(); });
+    // Auto-hide: the bar fades out a few seconds after playback starts (Settings > Control-bar fade delay),
+    // and comes back on mousemove, tap, focus or pause. It stays visible while paused.
+    const delaySet = window.RRS ? RRS.get('fadeDelay') : '3';
+    const delay = delaySet === 'never' ? 0 : (+delaySet || 3) * 1000;
+    let idleT = 0, wasIdle = false;
+    const wake = () => { if (p.classList.contains('rr-idle')) { wasIdle = true; setTimeout(() => { wasIdle = false; }, 400); } p.classList.remove('rr-idle'); clearTimeout(idleT);
+      if (delay && !v.paused && !v.ended) idleT = setTimeout(() => { if (!v.paused) p.classList.add('rr-idle'); }, delay);
+    };
+    ['mousemove', 'touchstart', 'focusin', 'keydown'].forEach(e => p.addEventListener(e, wake, { passive: true }));
+    v.addEventListener('play', wake);
+    v.addEventListener('pause', () => { clearTimeout(idleT); p.classList.remove('rr-idle'); });
+    p.addEventListener('mouseleave', () => { if (delay && !v.paused) { clearTimeout(idleT); idleT = setTimeout(() => p.classList.add('rr-idle'), 600); } });
     const sync = () => { play.textContent = v.paused ? '▶' : '❚❚'; play.setAttribute('aria-label', v.paused ? 'Play' : 'Pause');
       time.textContent = fmt(v.currentTime) + ' / ' + fmt(v.duration); if (!seeking && v.duration) seek.value = Math.round(v.currentTime / v.duration * 1000); };
     let seeking = false;
@@ -146,7 +178,7 @@
     else fs.hidden = true;
     p.addEventListener('keydown', e => { if (e.key === ' ' && e.target === v) { e.preventDefault(); toggle(); } });
   }
-  function setDownload(f) { $('vdl').href = iaFileUrl(f.name); $('vdl').setAttribute('download', f.name.split('/').pop()); $('vdl').hidden = !!known.silent; }
+  function setDownload(f) { if (known.silent || !$('vdl')) return; $('vdl').href = iaFileUrl(f.name); $('vdl').setAttribute('download', f.name.split('/').pop()); }
   function loadNative(list, play, retried) {
     const fileUrl = iaFileUrl(list[0].name);
     p.className = 'player rr-native';
@@ -168,8 +200,8 @@
       playerMessage("This video won't play here", known.silent ? 'The file could not be loaded from Internet Archive. Please try again later.' : 'The file could not be loaded from Internet Archive. You can still open it directly.',
         (known.silent ? '' : `<a class="btn" href="${esc(fileUrl)}" target="_blank" rel="noopener">Open the video file</a>`) + `<a class="ghost" href="index.html">Go to the home page</a>`);
     });
-    // When it ends, stay put: no suggestions, no redirect. Just show the poster frame again.
-    v.addEventListener('ended', () => { v.currentTime = 0; v.load(); });
+    applyPrefs(v);
+    v.addEventListener('ended', () => endScreen(v));
     p.appendChild(v);
     if (known.silent) addSilentControls(v);
     if (auto || play) {
@@ -177,6 +209,40 @@
       const pr = v.play();
       if (pr && pr.catch) pr.catch(() => { v.muted = true; v.play().catch(() => {}); });
     }
+  }
+
+  // Viewer settings (settings.html): volume, speed, captions, remember position, history.
+  const S = k => window.RRS ? RRS.get(k) : null;
+  function applyPrefs(v) {
+    if (!known.silent && S('volume') != null) v.volume = Math.max(0, Math.min(1, S('volume') / 100));
+    const rate = parseFloat(S('speed')) || 1;
+    const setRate = () => { v.playbackRate = rate; v.defaultPlaybackRate = rate; };
+    setRate(); v.addEventListener('loadedmetadata', setRate);
+    v.addEventListener('loadedmetadata', () => { for (const t of v.textTracks) t.mode = S('captions') ? 'showing' : 'disabled'; });
+    const key = 'rr_pos_' + id;
+    try { const h = JSON.parse(localStorage.getItem('rr_history') || '[]').filter(x => x !== id); h.unshift(id); localStorage.setItem('rr_history', JSON.stringify(h.slice(0, 50))); } catch (e) {}
+    if (S('rememberPos')) {
+      v.addEventListener('loadedmetadata', () => { const t = +localStorage.getItem(key) || 0; if (t > 5 && v.duration && t < v.duration - 10) v.currentTime = t; }, { once: true });
+      let last = 0;
+      v.addEventListener('timeupdate', () => { if (Math.abs(v.currentTime - last) > 5) { last = v.currentTime; try { localStorage.setItem(key, String(Math.floor(last))); } catch (e) {} } });
+    }
+  }
+  // End of the video: tell the viewer, offer Replay, and (if Autoplay next is on) count down to the next video.
+  function endScreen(v) {
+    try { localStorage.removeItem('rr_pos_' + id); } catch (e) {}
+    p.classList.remove('rr-idle');
+    const next = document.querySelector('[data-minis] a.mini');
+    const auto = S('autoplayNext') && next;
+    const o = document.createElement('div');
+    o.className = 'rr-end';
+    o.innerHTML = `<div class="rr-end-card"><b>Finished</b>${auto ? `<span class="rr-end-next">Up next: ${esc(next.querySelector('h3').textContent)} in <i>5</i>s</span>` : ''}
+      <div class="rr-nf-btns"><button type="button" class="btn rr-replay">↻ Replay</button>${auto ? '<button type="button" class="ghost rr-cancel">Cancel</button>' : ''}${next ? `<a class="ghost" href="${esc(next.getAttribute('href'))}${auto ? '' : ''}">Next video</a>` : ''}</div></div>`;
+    p.appendChild(o);
+    let timer = 0;
+    if (auto) { let n = 5; const i = o.querySelector('i'); timer = setInterval(() => { n--; i.textContent = n; if (n <= 0) { clearInterval(timer); location.href = next.getAttribute('href') + '&autoplay=1'; } }, 1000);
+      o.querySelector('.rr-cancel').addEventListener('click', () => { clearInterval(timer); o.querySelector('.rr-end-next').remove(); o.querySelector('.rr-cancel').remove(); }); }
+    o.querySelector('.rr-replay').addEventListener('click', () => { clearInterval(timer); o.remove(); v.currentTime = 0; v.play().catch(() => {}); });
+    o.querySelector('.rr-replay').focus({ preventScroll: true });
   }
 
   function loadEmbed(play) {
@@ -276,5 +342,7 @@
   }
 })();
 </script>
-<script src="nav.js?v=9"></script>
+<script src="config.js?v=10"></script>
+<script src="peertube.js?v=10"></script>
+<script src="nav.js?v=10"></script>
 </body></html>

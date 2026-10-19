@@ -33,8 +33,9 @@
 // Adding a batch: one classic(...) line per item in CLASSICS:
 //   classic("Archive_Id", "Title", 1925, "Director", US, { file: "Film.mp4", yearSource: "https://..." }),
 // Use US for US films, FOREIGN("German") etc. for non-US films, or write your own rights sentence.
-// Only add a classic after checking it: published 1930 or earlier, or an explicit Creative Commons
-// license on the Archive page. Watch for modern added soundtracks and later re-releases; mark those hold: true.
+// Only add a classic after checking its rights: a US release from 1930 or earlier (US public domain),
+// a verified Creative Commons license such as CC BY (e.g. the Blender films), a US government work
+// (e.g. NASA films), or a Public Domain Mark on the Archive page. Watch for modern added soundtracks and later re-releases; mark those hold: true.
 (function () {
   var US = 'US film published before 1931, so it is in the US public domain.';
   function FOREIGN(country) { return country + ' film published before 1931, so it is in the US public domain. Rights in other countries may differ.'; }
@@ -48,7 +49,7 @@
     classic('CC_1916_09_04_TheCount', 'The Count', 1916, 'Charlie Chaplin', US, { date: "2006-12-23", yearSource: 'https://en.wikipedia.org/wiki/The_Count_(1916_film)' }),
     classic("silent-the-great-train-robbery", "The Great Train Robbery", 1903, "Edwin S. Porter", US, { date: "2020-12-05", file: "The Great Train Robbery.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Great_Train_Robbery_(1903_film)" }),
     classic("ATripToTheMoonGeorgeMelies", "A Trip to the Moon", 1902, "Georges Méliès", FOREIGN("French"), { date: "2017-04-10", file: "A Trip to the Moon-George Méliès.mp4", yearSource: "https://en.wikipedia.org/wiki/A_Trip_to_the_Moon", silent: true }),
-    classic("CC_1917_06_17_TheImmigrant", "The Immigrant", 1917, "Charlie Chaplin", US, { date: "2006-12-23", file: "CC_1917_06_17_TheImmigrant_512kb.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Immigrant_(1917_film)", silent: true, hold: true }),
+    classic("the-immigrant-1917_202304", "The Immigrant", 1917, "Charlie Chaplin", US, { date: "2023-04-30", file: "The Immigrant (1917).mp4", license: "Public Domain Mark 1.0", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/", runtime: "about 24 min", rightsNote: "This copy has no audio track.", yearSource: "https://en.wikipedia.org/wiki/The_Immigrant_(1917_film)" }),
     classic("CC_1916_12_04_TheRink", "The Rink", 1916, "Charlie Chaplin", US, { date: "2006-12-23", file: "CC_1916_12_04_TheRink_512kb.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Rink_(film)", silent: true }),
     classic("EasyStreet1917", "Easy Street", 1917, "Charlie Chaplin", US, { date: "2013-12-22", file: "Easy-Street-v2.mp4", yearSource: "https://en.wikipedia.org/wiki/Easy_Street_(film)" }),
     classic("CC_1917_10_22_TheAdventurer", "The Adventurer", 1917, "Charlie Chaplin", US, { date: "2006-12-23", file: "CC_1917_10_22_TheAdventurer_512kb.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Adventurer_(1917_film)", silent: true }),
@@ -107,6 +108,16 @@
     classic("silent-the-last-laugh", "The Last Laugh", 1924, "F. W. Murnau", FOREIGN("German"), { date: "2020-12-03", file: "The Last Laugh.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Last_Laugh" }),
     classic("silent-the-haunted-castle", "The Haunted Castle (Schloß Vogelöd)", 1921, "F. W. Murnau", FOREIGN("German"), { date: "2020-12-05", file: "The Haunted Castle.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Haunted_Castle_(1921_film)" }),
     classic("silent-paris-qui-dort-aka-paris-asleep", "Paris qui dort (The Crazy Ray)", 1924, "René Clair", FOREIGN("French"), { date: "2020-12-02", file: "Paris qui dort AKA Paris Asleep.mp4", yearSource: "https://en.wikipedia.org/wiki/Paris_qui_dort" }),
+    // Batch 3 (checked 2026-10-19, classics-batch3-check.md): US releases before 1931, no audio track. Tumbleweeds (CHECK) not added.
+    classic("silent-the-sheik", "The Sheik", 1921, "George Melford", US, { date: "2020-12-05", file: "The Sheik.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Sheik_(film)" }),
+    classic("silent-broken-blossoms", "Broken Blossoms", 1919, "D. W. Griffith", US, { date: "2020-12-04", file: "Broken Blossoms.mp4", yearSource: "https://en.wikipedia.org/wiki/Broken_Blossoms", contentWarning: "Content warning: racial stereotypes." }),
+    classic("silent-blind-husbands", "Blind Husbands", 1919, "Erich von Stroheim", US, { date: "2020-12-04", file: "Blind Husbands.mp4", yearSource: "https://en.wikipedia.org/wiki/Blind_Husbands" }),
+    classic("silent-the-saphead", "The Saphead", 1920, "Herbert Blaché", US, { date: "2020-12-05", file: "The Saphead.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Saphead" }),
+    classic("silent-the-electric-house", "The Electric House", 1922, "Buster Keaton, Edward F. Cline", US, { date: "2020-12-05", file: "The Electric House.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Electric_House" }),
+    classic("silent-the-butcher-boy", "The Butcher Boy", 1917, "Roscoe Arbuckle", US, { date: "2020-12-05", file: "The Butcher Boy.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Butcher_Boy_(1917_film)" }),
+    classic("silent-the-fireman", "The Fireman", 1916, "Charlie Chaplin", US, { date: "2020-12-05", file: "The Fireman.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Fireman_(1916_film)" }),
+    classic("silent-the-floorwalker", "The Floorwalker", 1916, "Charlie Chaplin", US, { date: "2020-12-05", file: "The Floorwalker.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Floorwalker", rightsNote: "Title card reads The Big Store (later reissue)." }),
+    classic("silent-the-musketeers-of-pig-alley", "The Musketeers of Pig Alley", 1912, "D. W. Griffith", US, { date: "2020-12-05", file: "The Musketeers of Pig Alley.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Musketeers_of_Pig_Alley" }),
     classic("silent-the-revenge-of-a-kinematograph-cameraman", "The Revenge of a Kinematograph Cameraman", 1912, "Władysław Starewicz", FOREIGN("Russian"), { date: "2020-12-05", file: "The Revenge of a Kinematograph Cameraman.mp4", yearSource: "https://en.wikipedia.org/wiki/The_Cameraman%27s_Revenge", classicsOnly: true, runtime: "21.8 min", runtimeNote: "This copy plays slower than the original (about 12-13 min)." })
   ];
 

@@ -8,6 +8,7 @@
 (function () {
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var vids = window.VIDEOS || [];
+  var ok = function (v, home) { return !window.RRS || RRS.allow(v, { home: home }); };
   function href(v) { return 'watch.html?v=' + encodeURIComponent(v.id) + (v.host === 'clipplace' ? '&host=clipplace' : ''); }
   function thumb(v, label) {
     var img = v && v.host !== 'clipplace' ? '<img class="rr-timg" alt="" loading="lazy" src="https://archive.org/services/img/' + encodeURIComponent(v.id) + '" onerror="this.remove()">' : '';
@@ -22,6 +23,7 @@
   };
   // First meta line: release year for classics ('1926'), 'Added Oct 19, 2026' for everything else; empty when missing.
   window.rrDateLine = function (v) {
+    if (window.RRS && !RRS.get('showDates')) return '';  // Settings > Show video dates
     // Classics show only their release year; the Archive's upload date isn't when RawReel added them.
     if (v.category === 'classic') return v.year ? String(v.year) : '';
     var f = window.rrFormatDate(v.date);
@@ -42,7 +44,8 @@
   window.rrRenderCards = function () {
     var current = new URLSearchParams(location.search).get('v');
     document.querySelectorAll('[data-cards]').forEach(function (g) {
-      var cat = g.dataset.category, full = g.hasAttribute('data-full-list'), list = vids.filter(function (v) { return (!cat || v.category === cat) && (full || !v.classicsOnly); });
+      var cat = g.dataset.category, full = g.hasAttribute('data-full-list'), home = g.hasAttribute('data-home'), list = vids.filter(function (v) { return (!cat || v.category === cat) && (full || !v.classicsOnly) && ok(v, home); });
+      if (home && !list.length && cat === 'classic') { g.hidden = true; var hh = g.previousElementSibling; if (hh && hh.classList.contains('sec-h')) hh.hidden = true; return; }
       var n = g.dataset.cards === 'all' ? list.length : +g.dataset.cards, html = '';
       for (var i = 0; i < n; i++) {
         var v = list[i];
@@ -53,7 +56,7 @@
       g.innerHTML = html || '<p class="empty-note">Nothing here yet.</p>';
     });
     document.querySelectorAll('[data-minis]').forEach(function (g) {
-      var n = +g.dataset.minis, list = vids.filter(function (v) { return v.id !== current && !v.classicsOnly; }), html = '';
+      var n = +g.dataset.minis, list = vids.filter(function (v) { return v.id !== current && !v.classicsOnly && ok(v, false); }), html = '';
       list.sort(function (a, b) { return (a.category === 'classic' ? 0 : 1) - (b.category === 'classic' ? 0 : 1); });
       for (var i = 0; i < Math.min(n, list.length); i++) {
         var v = list[i];

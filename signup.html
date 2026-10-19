@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign up - RawReel</title><meta name="robots" content="noindex"><link rel="stylesheet" href="style.css?v=10"><script src="settings.js?v=10"></script><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
+<body>
+<header>
+  <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Backed up for good</small></a>
+  <form class="search" role="search" action="search.html" method="get"><input type="search" name="q" placeholder="Search classics and channels" aria-label="Search classics and channels" enterkeyhint="search"><button>Search</button></form>
+  <nav class="mainnav" aria-label="Main">
+    <a class="ghost nav-home" href="index.html">Home</a>
+    <a class="ghost" href="classics.html">Classics</a>
+    <a class="ghost" href="replay.html">Music</a>
+    <a class="ghost nav-submit" href="upload.html">Submit</a>
+    <a class="btn" href="import.html">Back up</a>
+    <details class="more">
+      <summary class="ghost">More</summary>
+      <div class="more-menu">
+        <a href="upload.html">Submit a video</a>
+        <a href="submit.html">Share your music</a>
+        <a href="replay-rules.html">Music rules</a>
+        <a href="rules.html">Rules</a>
+        <a href="about.html">About RawReel</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html#sponsor">Sponsor RawReel</a>
+        <hr>
+        <a href="signin.html" data-auth="out">Sign in</a>
+        <a href="signup.html" data-auth="out">Sign up</a>
+        <a href="account.html">My account</a>
+        <a href="my-channel.html">My channel</a>
+        <a href="my-uploads.html">My uploads</a>
+        <a href="subscriptions.html">Subscriptions</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="settings.html"><span aria-hidden="true">⚙</span> Settings</a>
+        <button type="button" class="rr-theme-toggle">Theme: Light</button>
+      </div>
+    </details>
+  </nav>
+</header>
+<div class="panel doc acct" data-page="signup">
+  <h1><strong>Create your</strong> RawReel account.</h1>
+  <p class="soon" data-soon><span class="orb"></span><span><b>Accounts open soon.</b> Coming with our own video server.</span></p>
+  <form class="subform acct-form" id="f-signup" novalidate>
+    <fieldset class="av-pick"><legend class="flabel">Choose an avatar</legend><div class="av-grid" id="av-grid"></div></fieldset>
+    <label class="flabel" for="su-display">Display name</label>
+    <input class="field" id="su-display" autocomplete="name" maxlength="120" required>
+    <label class="flabel" for="su-user">Username</label>
+    <input class="field" id="su-user" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="50" required>
+    <small class="hint">Lowercase letters, numbers, dots and underscores. This is your link: video.rawreel.org/a/<b>username</b></small>
+    <label class="flabel" for="su-email">Email</label>
+    <input class="field" id="su-email" type="email" autocomplete="email" required>
+    <label class="flabel" for="su-pass">Password</label>
+    <input class="field" id="su-pass" type="password" autocomplete="new-password" minlength="8" required>
+    <small class="hint">At least 8 characters.</small>
+    <label class="flabel" for="su-pass2">Confirm password</label>
+    <input class="field" id="su-pass2" type="password" autocomplete="new-password" required>
+    <label class="flabel" for="su-channel">Channel name</label>
+    <input class="field" id="su-channel" autocapitalize="off" spellcheck="false" maxlength="50" required>
+    <small class="hint">Your first channel's handle. Must differ from your username.</small>
+    <label class="flabel" for="su-reason">What will you post? <span class="opt">(helps the team approve you)</span></label>
+    <textarea class="field" id="su-reason" rows="2" maxlength="500" placeholder="e.g. Backups of my YouTube channel youtube.com/@me"></textarea>
+    <label class="subcheck"><input type="checkbox" id="su-ok"> I'm 16 or older and agree to follow the <a href="rules.html">rules</a>.</label>
+    <p class="ferr" aria-live="polite"></p>
+    <button class="btn" data-needs-server>Create account</button>
+    <p class="fine">Already have one? <a href="signin.html">Sign in</a></p>
+  </form>
+</div>
+<footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data. · <a href="faq.html">FAQ</a></footer>
+<script src="videos.js?v=10"></script>
+<script src="cards.js?v=10"></script>
+<script src="config.js?v=10"></script>
+<script src="peertube.js?v=10"></script>
+<script src="nav.js?v=10"></script>
+<script src="account.js?v=10"></script>
+</body></html>

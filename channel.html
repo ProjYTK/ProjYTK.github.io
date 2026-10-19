@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Backed-up channel - RawReel</title><link rel="stylesheet" href="style.css?v=9"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/channel.html"><meta property="og:url" content="https://rawreel.github.io/channel.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
+<title>Backed-up channel - RawReel</title><link rel="stylesheet" href="style.css?v=10"><script src="settings.js?v=10"></script><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/channel.html"><meta property="og:url" content="https://rawreel.github.io/channel.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Backed up for good</small></a>
-  <form class="search" role="search" onsubmit="return false"><input placeholder="Search classics and channels" aria-label="Search"><button>Search</button></form>
+  <form class="search" role="search" action="search.html" method="get"><input type="search" name="q" placeholder="Search classics and channels" aria-label="Search classics and channels" enterkeyhint="search"><button>Search</button></form>
   <nav class="mainnav" aria-label="Main">
     <a class="ghost nav-home" href="index.html">Home</a>
     <a class="ghost" href="classics.html">Classics</a>
+    <a class="ghost" href="replay.html">Music</a>
+    <a class="ghost nav-submit" href="upload.html">Submit</a>
     <a class="btn" href="import.html">Back up</a>
     <details class="more">
       <summary class="ghost">More</summary>
       <div class="more-menu">
         <a href="upload.html">Submit a video</a>
+        <a href="submit.html">Share your music</a>
+        <a href="replay-rules.html">Music rules</a>
         <a href="rules.html">Rules</a>
         <a href="about.html">About RawReel</a>
+        <a href="faq.html">FAQ</a>
         <a href="about.html#sponsor">Sponsor RawReel</a>
+        <hr>
+        <a href="signin.html" data-auth="out">Sign in</a>
+        <a href="signup.html" data-auth="out">Sign up</a>
+        <a href="account.html">My account</a>
+        <a href="my-channel.html">My channel</a>
+        <a href="my-uploads.html">My uploads</a>
+        <a href="subscriptions.html">Subscriptions</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="settings.html"><span aria-hidden="true">⚙</span> Settings</a>
+        <button type="button" class="rr-theme-toggle">Theme: Light</button>
       </div>
     </details>
   </nav>
@@ -41,9 +56,9 @@
 <section class="tabpane" id="pane-modlog" role="tabpanel" hidden>
   <div class="panel tabbox empty"><span class="num">✓</span><h3>Moderation log</h3><p>No moderation actions on this channel. Any action would be listed here, with the <a href="rules.html">rule</a> it falls under.</p></div>
 </section>
-<footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
-<script src="videos.js?v=9"></script>
-<script src="cards.js?v=9"></script>
+<footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data. · <a href="faq.html">FAQ</a></footer>
+<script src="videos.js?v=10"></script>
+<script src="cards.js?v=10"></script>
 <script>
 (function(){
   const tabs = [...document.querySelectorAll('.tabs .tab')];
@@ -59,5 +74,31 @@
   show(location.hash.slice(1));
 })();
 </script>
-<script src="nav.js?v=9"></script>
+<script src="config.js?v=10"></script>
+<script src="peertube.js?v=10"></script>
+<script src="nav.js?v=10"></script>
+<script>
+// Real channel pages from video.rawreel.org when PEERTUBE_ENABLED (channel.html?c=<handle>). Off = the placeholder page as before.
+(function () {
+  const pt = window.RRPT, c = new URLSearchParams(location.search).get('c');
+  if (!pt || !pt.enabled || !c) return;
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, x => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
+  const grid = document.querySelector('#pane-videos .grid');
+  grid.innerHTML = '<p class="empty-note">Loading…</p>';
+  pt.getChannel(c).then(ch => {
+    document.querySelector('.chead h1').textContent = ch.displayName;
+    document.querySelector('.chead p').textContent = (ch.followersCount || 0) + ' subscriber' + (ch.followersCount === 1 ? '' : 's') + ' · ' + ch.name + '@' + ch.host;
+    const av = (ch.avatars || [])[0]; if (av) document.querySelector('.chead .avatar').style.backgroundImage = 'url(' + pt.base + av.path + ')';
+    const ab = document.querySelector('#pane-about .tabbox');
+    ab.innerHTML = '<h3>About ' + esc(ch.displayName) + '</h3><p>' + esc(ch.description || 'No description yet.') + '</p><p class="tabmeta">Joined: ' + esc(window.rrFormatDate ? rrFormatDate(String(ch.createdAt).slice(0, 10)) : ch.createdAt) + '</p>';
+    document.title = ch.displayName + ' - RawReel';
+    const sub = document.querySelector('.csub');
+    sub.addEventListener('click', () => pt.isSignedIn() ? pt.subscribe(ch.name + '@' + ch.host).then(() => { sub.textContent = 'Subscribed'; }) : (location.href = 'signin.html?next=channel.html'));
+    return pt.channelVideos(c);
+  }).then(r => {
+    const d = (r && r.data) || [];
+    grid.innerHTML = d.length ? d.map(v => '<a class="card" href="' + esc(pt.watchUrl(v)) + '"><div class="thumb"><img class="rr-timg" alt="" loading="lazy" src="' + esc(pt.base + v.thumbnailPath) + '"></div><div class="meta"><h3>' + esc(v.name) + '</h3><small class="m1">' + esc(window.rrFormatDate ? rrFormatDate(String(v.publishedAt).slice(0, 10)) : '') + '</small></div></a>').join('') : '<p class="empty-note">No videos yet.</p>';
+  }).catch(e => { grid.innerHTML = '<p class="empty-note">Could not load this channel (' + esc(e.message) + ').</p>'; });
+})();
+</script>
 </body></html>
