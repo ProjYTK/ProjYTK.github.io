@@ -277,7 +277,7 @@ mark.ph { color:#6b4e00; font-weight:600; padding:0 4px; border-radius:3px; whit
   .imp-bar .ghost { min-height:44px; padding:0 14px; font-size:13px; }
   /* checkboxes: 22px box inside a 44px-tall padded label */
   .doc input[type="checkbox"] { width:22px; height:22px; flex-shrink:0; margin:0; }
-  #sub label { display:block; position:relative; min-height:44px; padding:11px 0 11px 34px; line-height:1.45; cursor:pointer; }
+  #sub label.subcheck { display:block; position:relative; min-height:44px; padding:11px 0 11px 34px; line-height:1.45; cursor:pointer; }
   #sub label input[type="checkbox"] { position:absolute; left:0; top:11px; }
   .imp-own, .imp-bar label { display:flex; align-items:center; gap:10px; min-height:44px; padding:6px 0; cursor:pointer; }
   .imp-bar label { flex-basis:100%; flex-wrap:wrap; column-gap:10px; row-gap:0; }
@@ -374,3 +374,85 @@ header .btn, header .ghost { display:inline-flex; align-items:center; min-height
   accent-color:#3a91d8; box-shadow:0 0 0 1px rgba(10,40,70,.5), 0 2px 8px rgba(0,0,0,.35); }
 .rr-video:focus-visible { outline:2px solid #bfe6ff; outline-offset:-2px; }
 @media (max-width: 760px) { .player.rr-native { padding:3px 3px 0; border-radius:0; } .rr-video { border-radius:3px 3px 0 0; } }
+
+/* ---- Overhaul (v7): backup pitch, classics, source and rights ---- */
+.steps { list-style:none; margin:16px 0 0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:12px; position:relative; }
+.steps li { display:flex; gap:10px; align-items:flex-start; padding:12px 14px; border-radius:8px; border:1px solid #fff;
+  background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(232,246,255,.7)); box-shadow:0 1px 4px rgba(60,130,190,.15), inset 0 1px 0 #fff; }
+.steps b { display:block; font-size:14px; color:#1f4f7a; } .steps small { display:block; margin-top:2px; font-size:12.5px; color:#6f8496; }
+.hero-btns { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; position:relative; }
+.hero-btns .btn, .hero-btns .ghost { display:inline-flex; align-items:center; min-height:44px; padding:0 20px; font-size:15px; }
+.hero-sm { padding:20px 30px; } .hero-sm h1 { font-size:28px; }
+.sec-h { display:flex; align-items:baseline; gap:12px; }
+.sec-h a { margin-left:auto; font-size:13px; font-weight:600; color:#1f6fb2; text-decoration:underline; display:inline-flex; align-items:center; min-height:44px; }
+.sec-h + .grid { margin-top:-4px; }
+.card.classic .meta small { color:#5f7f62; }
+.empty-note { color:#7a8d9c; font-size:14px; }
+.rights { margin:14px 0 0; padding:12px 14px; border-radius:6px; border:1px solid #c9dceb; background:linear-gradient(180deg,#f7fbfe,#eaf4fb); box-shadow:inset 0 1px 0 #fff; }
+.rights h3 { margin:0 0 6px; font-size:14px; color:#1f4f7a; }
+.rights p { margin:0 0 4px; font-size:13px; color:#4f6577; line-height:1.5; overflow-wrap:anywhere; }
+.rights a { color:#1f6fb2; text-decoration:underline; }
+@media (max-width: 760px) {
+  .steps { grid-template-columns:1fr; gap:8px; }
+  .hero-btns .btn, .hero-btns .ghost { flex:1 1 100%; justify-content:center; }
+  .hero-sm { padding:18px; } .hero-sm h1 { font-size:22px; }
+  .sec-h { margin-bottom:4px; }
+  .grid { grid-template-columns:1fr 1fr; gap:10px; }
+  .grid .meta { padding:8px 9px 10px; } .grid .meta h3 { font-size:13px; }
+  .nav-home { display:none !important; }  /* the logo already links home */
+}
+
+/* ---- Silent (audio-locked) player ---- */
+.rr-silent-note { position:absolute; left:12px; top:12px; z-index:2; font-size:11.5px; font-weight:600; color:#7a5a12; padding:3px 9px; border-radius:10px;
+  border:1px solid #ecd28a; background:linear-gradient(180deg,#fffbe9,#ffeeb5); pointer-events:none; }
+.rr-ctl { position:absolute; left:5px; right:5px; bottom:0; z-index:2; display:flex; align-items:center; gap:10px; padding:4px 10px;
+  background:linear-gradient(180deg,rgba(111,186,242,.92) 0%,rgba(58,145,216,.92) 50%,rgba(42,127,198,.95) 51%,rgba(31,95,153,.95) 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55); color:#fff; }
+.rr-ctl button { min-width:44px; min-height:44px; border:0; background:transparent; color:#fff; font-size:18px; cursor:pointer; text-shadow:0 -1px 0 rgba(0,0,0,.25); border-radius:4px; }
+.rr-ctl button:hover, .rr-ctl button:focus-visible { background:rgba(255,255,255,.18); outline:none; }
+.rr-ctl-time { font-size:12.5px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.rr-ctl-seek { flex:1; min-width:0; height:44px; accent-color:#bfe6ff; cursor:pointer; }
+.rr-native:fullscreen { padding:0; } .rr-native:fullscreen .rr-ctl { left:0; right:0; }
+@media (max-width: 760px) { .rr-ctl { left:3px; right:3px; gap:4px; padding:0 4px; } .rr-silent-note { left:8px; top:8px; font-size:11px; } }
+
+/* ---- Tester fixes (v7) ---- */
+.doc .cta { margin:10px 0 0; }
+.doc .cta .btn, .doc .cta .ghost { display:inline-flex; align-items:center; min-height:44px; padding:0 18px; text-decoration:none; }
+@media (max-width: 760px) {
+  /* Checkboxes: the input itself is a 44x44 hit box; it draws a tidy 22px glossy box in the middle.
+     Negative margins keep the 22px footprint so the labels' layout doesn't change. */
+  .doc input[type="checkbox"] { -webkit-appearance:none; appearance:none; position:relative; width:44px; height:44px; margin:-11px; flex-shrink:0;
+    background:transparent; border:0; cursor:pointer; vertical-align:middle; }
+  .doc input[type="checkbox"]::before { content:""; position:absolute; left:11px; top:11px; width:22px; height:22px; box-sizing:border-box; border-radius:4px;
+    border:1px solid #8fb6d3; background:linear-gradient(180deg,#fff,#e2edf5); box-shadow:inset 0 1px 0 #fff, 0 1px 2px rgba(30,90,150,.2); }
+  .doc input[type="checkbox"]:checked::before { border-color:#2f7fc0; background:linear-gradient(180deg,#6fbaf2 0%,#3a91d8 50%,#2a7fc6 51%,#3d95da 100%); }
+  .doc input[type="checkbox"]:checked::after { content:""; position:absolute; left:19px; top:15px; width:6px; height:11px; border:solid #fff; border-width:0 3px 3px 0; transform:rotate(45deg); }
+  .doc input[type="checkbox"]:focus-visible::before { outline:2px solid #2a7fc6; outline-offset:2px; }
+  #sub label input[type="checkbox"] { position:absolute; left:0; top:11px; }
+  .imp-pickwrap { overflow:visible; }
+}
+
+/* ---- Submit form: labels, errors, rules line, email fallback ---- */
+.flabel { font-size:13px; font-weight:600; color:#2c4d68; margin-bottom:-6px; }
+.ferr { margin:-4px 0 0; font-size:13px; color:#b03a2e; } .ferr:empty { display:none; }
+.field[aria-invalid="true"] { border-color:#d0675b; background:#fff4f2; }
+.rules-line { margin:-4px 0 0; font-size:13px; }
+.rules-line a { display:inline-flex; align-items:center; min-height:44px; color:#1f6fb2; text-decoration:underline; }
+.imp-send .rules-line { margin:-8px 0 0; }
+.mailbox { margin:22px 0 0 46px; max-width:480px; padding:12px 14px; border-radius:8px; border:1px solid #c9dceb; background:linear-gradient(180deg,#f7fbfe,#eaf4fb); box-shadow:inset 0 1px 0 #fff; }
+.mailbox p { margin:0 0 8px; font-size:14px; color:#4f6577; }
+.mailrow { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+.mailrow code { font-size:16px; font-weight:700; color:#1f4f7a; background:#fff; border:1px solid #c9dceb; border-radius:4px; padding:8px 10px; user-select:all; overflow-wrap:anywhere; }
+.mailrow .ghost { display:inline-flex; align-items:center; min-height:44px; min-width:64px; justify-content:center; }
+.copied { font-size:13px; color:#2f6a43; font-weight:600; }
+@media (max-width: 760px) { .mailbox { margin-left:0; } .mailrow code { font-size:15px; } }
+
+/* ---- Dates on cards and watch page ---- */
+.meta small, .mini small { display:block; line-height:1.4; }
+.meta small.m1 { color:#4f6577; } .card.classic .meta small.m2 { color:#5f7f62; }
+.mini small.m1 { color:#4f6577; }
+.vdate { margin:-4px 0 8px; font-size:13px; color:#6f8496; }
+@media (max-width: 760px) {
+  .grid .meta small { font-size:11.5px; } .grid .meta small.m1 { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .grid .meta h3 { overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+}

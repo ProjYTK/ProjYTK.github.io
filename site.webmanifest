@@ -1,7 +1,7 @@
 {
   "name": "RawReel",
   "short_name": "RawReel",
-  "description": "Videos that stay up",
+  "description": "Your channel's backup. Classics that stay free.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",

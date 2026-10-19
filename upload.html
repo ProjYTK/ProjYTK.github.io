@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Upload - RawReel</title><link rel="stylesheet" href="style.css?v=6"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Videos that stay up"><meta property="og:description" content="Videos that stay up."><meta property="og:image" content="/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og-image-1200x630.png"></head>
+<title>Submit a video for review - RawReel</title><link rel="stylesheet" href="style.css?v=7"><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/upload.html"><meta property="og:url" content="https://rawreel.github.io/upload.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
 <body>
 <header>
-  <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Videos that stay up</small></a>
-  <form class="search" role="search" onsubmit="return false"><input placeholder="Search videos" aria-label="Search videos"><button>Search</button></form>
+  <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Backed up for good</small></a>
+  <form class="search" role="search" onsubmit="return false"><input placeholder="Search classics and channels" aria-label="Search"><button>Search</button></form>
   <nav class="mainnav" aria-label="Main">
     <a class="ghost nav-home" href="index.html">Home</a>
-    <a class="btn" href="upload.html" aria-current="page">Upload</a>
+    <a class="ghost" href="classics.html">Classics</a>
+    <a class="btn" href="import.html">Back up</a>
     <details class="more">
       <summary class="ghost">More</summary>
       <div class="more-menu">
-        <a href="import.html">Bring your channel</a>
+        <a href="upload.html" aria-current="page">Submit a video</a>
         <a href="rules.html">Rules</a>
         <a href="about.html">About RawReel</a>
         <a href="about.html#sponsor">Sponsor RawReel</a>
@@ -20,24 +21,67 @@
   </nav>
 </header>
 <div class="panel doc">
-  <h1><strong>Upload</strong> your video.</h1>
-  <p class="lead">Videos are stored on Internet Archive, a free nonprofit library, and played here. About five minutes.</p>
-  <div class="rule"><div class="num">1</div><div><h3>Make a free Internet Archive account</h3><p>Sign up at <a href="https://archive.org/account/signup" target="_blank" rel="noopener">archive.org</a>. Free, only needs an email.</p></div></div>
-  <div class="rule"><div class="num">2</div><div><h3>Upload your video there</h3><p>Click Upload, add your file, title and description, and pick a license. Only videos you made or have the rights to.</p></div></div>
-  <div class="rule"><div class="num">3</div><div><h3>Copy your video's ID</h3><p>It's the last part of the link: <code>archive.org/details/<b>your-video-id</b></code>.</p></div></div>
-  <div class="rule"><div class="num">4</div><div><h3>Send it to us</h3><p>We'll add it to RawReel, usually within a day.</p></div></div>
-  <form id="sub" class="subform">
-    <input class="field" name="id" placeholder="Internet Archive video ID" required>
-    <input class="field" name="creator" placeholder="Your creator name" required>
-    <label class="subcheck"><input type="checkbox" required> I made this video or have the rights to post it, and it follows the <a href="rules.html">rules</a>.</label>
-    <button class="btn">Submit video</button>
-    <p class="fine">Opens your email app, addressed to RR.Support.Agent@gmail.com.</p>
+  <h1><strong>Submit a video</strong> for review.</h1>
+  <p class="lead">RawReel doesn't host video files. You put your video on Internet Archive first (that needs a free Archive account), then send us its ID. The team reviews every submission before it appears here, usually within a day. Backing up a whole channel? Use <a href="import.html">Back up your channel</a> instead.</p>
+  <div class="rule"><div class="num">1</div><div><h3>Get a free Internet Archive account</h3><p>Sign up at <a href="https://archive.org/account/signup" target="_blank" rel="noopener">archive.org/account/signup</a> and confirm the email they send you.</p></div></div>
+  <div class="rule"><div class="num">2</div><div><h3>Put your video on Internet Archive</h3><p>On the Archive's <a href="https://archive.org/create" target="_blank" rel="noopener">add-an-item page</a>, add your file, a title and description, and pick a license. Processing can take from a few minutes to a few hours for long videos. Only videos you made, have the rights to, or that are public domain.</p></div></div>
+  <div class="rule"><div class="num">3</div><div><h3>Copy the item's ID</h3><p>It's the last part of the link: <code>archive.org/details/<b>your-video-id</b></code>. Pasting the whole link below is fine too.</p></div></div>
+  <div class="rule"><div class="num">4</div><div><h3>Send it to us for review</h3><p>We check the rights and the file, then add it. If it can't go up, we'll email you why.</p></div></div>
+  <form id="sub" class="subform" novalidate>
+    <label class="flabel" for="sub-id">Internet Archive ID or link</label>
+    <input class="field" id="sub-id" name="id" placeholder="your-video-id or archive.org/details/…" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="sub-id-err" required>
+    <p class="ferr" id="sub-id-err" aria-live="polite"></p>
+    <label class="flabel" for="sub-creator">Your creator name</label>
+    <input class="field" id="sub-creator" name="creator" placeholder="Your creator name" required>
+    <label class="subcheck"><input type="checkbox" id="sub-ok" required> I made this video, own the rights, or it's public domain or Creative Commons, and it follows the rules.</label>
+    <p class="rules-line"><a href="rules.html">Read the rules</a></p>
+    <p class="ferr" id="sub-ok-err" aria-live="polite"></p>
+    <button class="btn">Send for review</button>
+    <p class="fine">This opens your email app with the details filled in.</p>
   </form>
+  <div class="mailbox">
+    <p><b>No email app opened?</b> Send the ID and your creator name to:</p>
+    <div class="mailrow"><code id="rr-mail">RR.Support.Agent@gmail.com</code><button type="button" class="ghost" id="rr-copy">Copy</button><span class="copied" id="rr-copied" aria-live="polite"></span></div>
+  </div>
 </div>
 <script>
-document.getElementById('sub').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);
-const body=`Video ID: ${f.get('id')}\nCreator: ${f.get('creator')}\nLink: https://archive.org/details/${f.get('id')}`;
-location.href=`mailto:RR.Support.Agent@gmail.com?subject=${encodeURIComponent('RawReel video submission')}&body=${encodeURIComponent(body)}`;});
+(function () {
+  const form = document.getElementById('sub'), idIn = document.getElementById('sub-id'), err = document.getElementById('sub-id-err');
+  // Accept a bare ID or any archive.org link (details/, download/, embed/), with or without https:// and www.
+  function cleanId(raw) {
+    let s = String(raw || '').trim();
+    const m = s.match(/^(?:https?:\/\/)?(?:www\.)?archive\.org\/(?:details|download|embed)\/([^\/?#\s]+)/i);
+    if (m) { try { s = decodeURIComponent(m[1]); } catch (e) { s = m[1]; } }
+    return s.trim();
+  }
+  const ok = s => /^[A-Za-z0-9._-]+$/.test(s);
+  function check() {
+    const id = cleanId(idIn.value);
+    if (id !== idIn.value) idIn.value = id;
+    const msg = !id ? 'Enter your Internet Archive ID or paste the link to your item.'
+      : !ok(id) ? "That doesn't look like an Archive ID. Use only letters, numbers, dots, dashes and underscores, like my-film_1925." : '';
+    err.textContent = msg; idIn.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    return msg ? null : id;
+  }
+  idIn.addEventListener('paste', () => setTimeout(check, 0));
+  idIn.addEventListener('blur', () => { if (idIn.value) check(); });
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const id = check(), creator = form.creator.value.trim(), box = document.getElementById('sub-ok'), okErr = document.getElementById('sub-ok-err');
+    okErr.textContent = box.checked ? '' : 'Please tick the box to confirm you have the rights.';
+    if (!id) { idIn.focus(); return; }
+    if (!creator) { form.creator.focus(); return; }
+    if (!box.checked) { box.focus(); return; }
+    const body = `Video ID: ${id}\nCreator: ${creator}\nLink: https://archive.org/details/${id}`;
+    location.href = `mailto:RR.Support.Agent@gmail.com?subject=${encodeURIComponent('RawReel video for review')}&body=${encodeURIComponent(body)}`;
+  });
+  document.getElementById('rr-copy').addEventListener('click', () => {
+    const el = document.getElementById('rr-mail'), addr = el.textContent, done = t => { document.getElementById('rr-copied').textContent = t; };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      let okc = false; try { okc = document.execCommand('copy'); } catch (e) {} done(okc ? 'Copied' : 'Selected, copy it now'); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(addr).then(() => done('Copied'), fallback); else fallback();
+  });
+})();
 </script>
 <footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data.</footer>
 
