@@ -698,3 +698,5 @@ html[data-theme="dark"] .faq p { color:#c3d8ec; }
 html[data-theme="dark"] .rr-vote.on { color:#fff; border-color:#5fa3e0; background:linear-gradient(180deg,#3a74ad,#1d4a78); }
 @media (max-width: 760px) { .acts .ghost, .acts .btn { min-height:44px; } }
 .vblurb { margin:2px 0 8px; }
+/* Phone tap target for the inline rules link in the watch-page notice (WCAG 2.5.5: at least 44px). */
+@media (max-width: 760px) { .notice a { display:inline-flex; align-items:center; min-height:44px; min-width:44px; justify-content:center; } }
