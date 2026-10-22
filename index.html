@@ -37,11 +37,11 @@
 </header>
 <section class="hero">
   <h1><strong>Your channel's backup.</strong> Classics that stay free.</h1>
-  <p>Keep posting on YouTube. RawReel keeps a copy, so if a video is pulled or your channel is banned, it's still up here.</p>
+  <p>Keep posting on YouTube. RawReel is a backup home for your videos, plus public-domain classics you can watch free.</p>
   <ol class="steps">
     <li><span class="num">1</span><div><b>Connect your channel</b><small>Start with a Google Takeout export</small></div></li>
-    <li><span class="num">2</span><div><b>We mirror every upload</b><small>Titles, descriptions and the video files</small></div></li>
-    <li><span class="num">3</span><div><b>If YouTube pulls it, it's still here</b><small>Same video, same link on RawReel</small></div></li>
+    <li><span class="num">2</span><div><b>Import your videos</b><small>Titles, descriptions and the video files from your export</small></div></li>
+    <li><span class="num">3</span><div><b>Your backups live on RawReel</b><small>Watch and share them here, free</small></div></li>
   </ol>
   <div class="hero-btns"><a class="btn" href="import.html">Back up my channel</a><a class="ghost" href="classics.html">Browse classics</a></div>
 </section>
@@ -57,11 +57,11 @@
 <section class="grid music-row" id="music-row"></section>
 <aside class="callout"><span class="orb"></span><p><b>Found a classic we're missing, or made something you want here?</b> Send it in and the team will review it.</p><a class="ghost" href="upload.html">Submit a video for review</a></aside>
 <footer>RawReel · Public-domain classics and channel backups · <a class="footer-faq" href="faq.html">FAQ</a></footer>
-<script src="videos.js?v=14"></script>
+<script src="videos.js?v=15"></script>
 <script src="recommend.js?v=13"></script>
 <script src="cards.js?v=13"></script>
-<script src="config.js?v=13"></script>
-<script src="peertube.js?v=13"></script>
+<script src="config.js?v=15"></script>
+<script src="peertube.js?v=15"></script>
 <script src="nav.js?v=13"></script>
 <script src="replay-data.js?v=13"></script>
 <script>(function(){var el=document.getElementById('music-row');if(!el||!window.REPLAY)return;if(window.RRS&&RRS.get('hideMusicHome')){el.hidden=true;document.getElementById('music-h').hidden=true;return;}var R=REPLAY;el.innerHTML=REPLAY_RELEASES.map(function(r){return '<a class="card music-card" href="album.html?id='+r.id+'"><img src="'+R.cover(r)+'" alt="Cover of '+R.esc(r.title)+'" loading="lazy"><b>'+R.esc(r.title)+'</b><span>'+R.esc(r.artist)+' &middot; '+r.tracks.length+' tracks</span></a>';}).join('');})();</script>

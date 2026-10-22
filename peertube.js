@@ -64,7 +64,7 @@
 
   var RRPT = {
     enabled: !!cfg.PEERTUBE_ENABLED, base: BASE,
-    musicChannel: cfg.PEERTUBE_MUSIC_CHANNEL || 'rawreplay',   // FRIDAY-GUIDE §15: music lives in its own channel
+    musicTag: cfg.PEERTUBE_MUSIC_TAG || 'rawreplay',   // FRIDAY-GUIDE §15: music is found by its tag
     isSignedIn: function () { return !!load(); },
     getClient: getClient, login: login, refresh: refresh, logout: logout,
     // POST /api/v1/users/register { username, password, email, displayName?, channel?: { name, displayName } } -> 204

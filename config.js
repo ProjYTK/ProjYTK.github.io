@@ -4,7 +4,7 @@
 window.RR_CONFIG = {
   PEERTUBE_ENABLED: false,
   PEERTUBE_URL: 'https://video.rawreel.org',     // fixed forever after PeerTube's first start (FRIDAY-GUIDE §5)
-  PEERTUBE_MUSIC_CHANNEL: 'rawreplay',           // RawReplay music channel (FRIDAY-GUIDE §15)
+  PEERTUBE_MUSIC_TAG: 'rawreplay',               // RawReplay music tag (FRIDAY-GUIDE §15)
   // EXTRA_ALLOWED_IDS: Internet Archive IDs that watch.html may play even though they are not in videos.js.
   // watch.html plays ONLY ids in videos.js (not held) plus this list; any other ?v= shows "Video not found".
   // Kept by hand: add an Archive upload made before Friday here until it gets its own videos.js entry.

@@ -8,7 +8,7 @@
   var RAWREPLAY_SERVER = {
     enabled: false,
     url: "https://video.rawreel.org",   // PeerTube server (goes live Fri Oct 23)
-    channel: "rawreplay",               // music channel; uploads land in the normal review queue
+    tag: "rawreplay",                   // each artist uploads to THEIR OWN channel; RawReplay finds music by this tag + category 1 (Music)
     privacy: 1,                         // 1 = public once a reviewer approves it
     licence: null                       // set if the artist picks a licence later
   };
@@ -26,9 +26,12 @@
     if (!artistToken) return Promise.reject(new Error("Please sign in to your RawReel artist account first"));
     var auth = { Authorization: "Bearer " + artistToken };
     var tracks = JSON.parse(data.get("tracks")), audio = data.getAll("audio"), cover = data.get("cover");
-    return fetch(C.url + "/api/v1/video-channels/" + encodeURIComponent(C.channel), { headers: auth })
-      .then(function (r) { if (!r.ok) throw new Error("music channel not found"); return r.json(); })
-      .then(function (ch) {
+    var slug = REPLAY.slug(data.get("title") || "release");
+    return fetch(C.url + "/api/v1/users/me", { headers: auth })      // the artist's own first channel
+      .then(function (r) { if (!r.ok) throw new Error("couldn\u2019t read your account (" + r.status + ")"); return r.json(); })
+      .then(function (me) {
+        var ch = (me.videoChannels || [])[0];
+        if (!ch) throw new Error("your account has no channel yet");
         var ids = [];
         return tracks.reduce(function (p, t, i) {
           return p.then(function () {
@@ -37,8 +40,11 @@
             f.append("name", t.title);
             f.append("privacy", C.privacy);
             if (C.licence) f.append("licence", C.licence);
-            f.append("description", data.get("artist") + " \u2014 " + data.get("title") + " (track " + (i + 1) + ")\n\n" + (data.get("notes") || ""));
-            f.append("tags[]", "rawreplay");
+            f.append("description", data.get("artist") + " \u2014 " + data.get("title") + "\nTrack " + (i + 1) + " of " + tracks.length + "\n\n" + (data.get("notes") || ""));
+            f.append("category", 1);
+            f.append("tags[]", C.tag);
+            f.append("tags[]", ("rr-" + slug).slice(0, 30));
+            if (cover && cover.size) f.append("thumbnailfile", cover, cover.name);
             f.append("videofile", audio[i], audio[i].name);
             if (cover && cover.size) f.append("previewfile", cover, cover.name);
             return fetch(C.url + "/api/v1/videos/upload", { method: "POST", headers: auth, body: f })
