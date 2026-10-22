@@ -3,7 +3,7 @@
   var crumbs = '<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">RawReel</a></li><li><a href="replay.html">Music</a></li>';
   if (!rel) {
     document.title = "Release not found | RawReplay";
-    main.innerHTML = crumbs + '<li><a href="releases.html">Releases</a></li></ol></nav><section class="empty"><span class="orb"></span><h1>' + (id ? "Release not found" : "No release picked") + "</h1><p>" + (id ? "We couldn\u2019t find that release. It may have been removed, or the link is mistyped." : "Pick a release to listen to.") + '</p><div class="acts"><a class="btn" href="releases.html">Browse all releases</a><a class="ghost" href="replay.html">Music home</a><a class="ghost" href="index.html">Back to RawReel</a></div></section>';
+    main.innerHTML = crumbs + '<li><a href="releases.html">Releases</a></li></ol></nav><section class="empty"><span class="orb"></span><h1>' + "Release not found" + "</h1><p>" + (id ? "We couldn\u2019t find that release. It may have been removed, or the link is mistyped." : "No release was picked. Browse the releases to find one.") + '</p><div class="acts"><a class="btn" href="releases.html">Browse all releases</a><a class="ghost" href="replay.html">Music home</a><a class="ghost" href="index.html">Back to RawReel</a></div></section>';
     return;
   }
   var total = rel.tracks.reduce(function (s, t) { return s + R.secs(t.length); }, 0), aslug = R.slug(rel.artist);
@@ -29,4 +29,4 @@
     var li = list.children[start]; if (li) li.scrollIntoView({ block: "center" });
   }
 })();
-(function(){var u=location.origin+location.pathname+location.search;var c=document.querySelector('link[rel=canonical]'),o=document.querySelector('meta[property="og:url"]');if(c)c.href=u;if(o)o.content=u;var t=document.querySelector('meta[property="og:title"]');if(t)t.content=document.title;})();
+(function(){var p=new URLSearchParams(location.search),k=p.has("id")?"id":(p.has("a")?"a":null),u=location.origin+location.pathname+(k?"?"+k+"="+encodeURIComponent(p.get(k)):"");var c=document.querySelector('link[rel=canonical]'),o=document.querySelector('meta[property="og:url"]');if(c)c.href=u;if(o)o.content=u;var t=document.querySelector('meta[property="og:title"]');if(t)t.content=document.title;})();

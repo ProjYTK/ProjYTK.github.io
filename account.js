@@ -8,6 +8,15 @@
   var page = (document.querySelector('[data-page]') || {}).dataset.page;
   var soon = document.querySelector('[data-soon]');
   if (soon) soon.hidden = on;
+  // Flag off: password, email and @handle inputs stay disabled with autocomplete=off and no name (static HTML),
+  // so password managers never offer to save them; submit buttons stay disabled. Flag on: switch them back on.
+  document.querySelectorAll('[data-off-input]').forEach(function (i) {
+    if (on) { i.disabled = false; if (i.dataset.ac) i.setAttribute('autocomplete', i.dataset.ac); }
+    else { i.value = ''; i.disabled = true; i.setAttribute('autocomplete', 'off'); i.removeAttribute('name'); }
+  });
+  if (page === 'signin' || page === 'signup') document.querySelectorAll('.acct-form [data-needs-server]').forEach(function (b) { b.disabled = !on; });
+  // Nothing typed is kept while accounts are closed: clear any field the browser restored from its form cache.
+  if (!on) window.addEventListener('pageshow', function () { document.querySelectorAll('.acct-form input:not([type=checkbox]):not([type=radio]):not([type=file]), .acct-form textarea').forEach(function (i) { i.value = ''; }); });
   var NEED_AUTH = ['account', 'my-channel', 'my-uploads', 'notifications', 'subscriptions'];
   if (on && NEED_AUTH.indexOf(page) !== -1 && !pt.isSignedIn()) { location.replace('signin.html?next=' + encodeURIComponent(page + '.html')); return; }
 
@@ -27,7 +36,7 @@
   function showSoon(f) {
     // Never look like anything was saved: wipe password fields and point at the note.
     f.querySelectorAll('input[type=password]').forEach(function (i) { i.value = ''; });
-    errBox(f).textContent = 'Accounts open soon. Coming with our own video server. Nothing was saved.';
+    errBox(f).textContent = 'Accounts open with our video server. Nothing was saved.';
     if (soon) { soon.classList.add('pulse'); soon.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
   }
   function bind(id, validate, run) {
@@ -44,13 +53,17 @@
   var safeNext = next && /^[a-z0-9-]+\.html$/.test(next) ? next : 'account.html';
 
   // Avatar picker (signup + account). The list lives in config.js -> RR_CONFIG.AVATARS.
-  var AV = ((window.RR_CONFIG || {}).AVATARS || []), avChoice = null;
+  // Entries with hidden: true (e.g. the logo orb) are skipped. Pre-selected: RR_CONFIG.DEFAULT_AVATAR (13-head-grey).
+  var AV = ((window.RR_CONFIG || {}).AVATARS || []).filter(function (a) { return a && !a.hidden; }), avChoice = null;
+  var AV_DEFAULT = (window.RR_CONFIG || {}).DEFAULT_AVATAR || 'avatars/13-head-grey.png';
   (function () {
     var g = $('av-grid'); if (!g) return;
     if (!AV.length) { g.closest('fieldset').hidden = true; return; }
     var saved = null; try { saved = localStorage.getItem('rr_avatar_choice'); } catch (e) {}
+    if (!AV.some(function (a) { return a.file === saved; })) saved = null;   // e.g. a now-hidden orb choice
+    var pre = saved || (AV.some(function (a) { return a.file === AV_DEFAULT; }) ? AV_DEFAULT : AV[0].file);
     g.innerHTML = AV.map(function (a, i) {
-      return '<label class="av-o"><input type="radio" name="avatar" value="' + esc(a.file) + '"' + ((saved ? saved === a.file : i === 0) ? ' checked' : '') + '><img src="' + esc(a.file) + '" alt="' + esc(a.label || 'Avatar ' + (i + 1)) + '" width="56" height="56"></label>';
+      return '<label class="av-o"><input type="radio" name="avatar" value="' + esc(a.file) + '"' + (a.file === pre ? ' checked' : '') + '><img src="' + esc(a.file) + '" alt="' + esc(a.label || 'Avatar ' + (i + 1)) + '" width="56" height="56"></label>';
     }).join('');
     function pick() { var c = g.querySelector('input:checked'); avChoice = c ? c.value : null;
       if (avChoice && $('ac-avatar-img')) { $('ac-avatar-img').style.backgroundImage = 'url(' + avChoice + ')'; if ($('ac-avatar')) $('ac-avatar').value = ''; } }

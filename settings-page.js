@@ -21,6 +21,8 @@
     });
   });
   document.getElementById('s-clear').addEventListener('click', function () { S.clearHistory(); say('Watch history cleared'); });
+  var cv = document.getElementById('s-clear-votes');
+  if (cv) cv.addEventListener('click', function () { if (window.RRRec) RRRec.clear(); else try { localStorage.removeItem('rr_votes'); } catch (e) {} say('Likes and dislikes cleared'); });
   document.getElementById('s-reset').addEventListener('click', function () { if (!confirm('Reset all settings to the defaults?')) return; S.reset(); fill(); say('Settings reset'); });
   fill();
 })();

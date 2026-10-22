@@ -1,3 +1,4 @@
+window.RAWREPLAY_PLAYER = window.RAWREPLAY_PLAYER || { peertube: false };  // off until Friday
 // RawReplay mini-player. One player on every RawReplay page. Keeps the queue (the current
 // release, in order, no shuffle), position and volume in localStorage so you can move between
 // pages and pick up where you left off. Exposes window.RP for page scripts.
@@ -40,7 +41,13 @@
     if (!r || !r.tracks[i]) return;
     var t = r.tracks[i];
     rel = r; cur = i; bar.hidden = false; document.body.classList.add("has-mini");
-    a.src = R.src(r, t);
+    // Friday fallback: flip RAWREPLAY_PLAYER.peertube to true once tracks come from video.rawreel.org.
+    // Tracks with a PeerTube video object (t.pt) then play via REPLAY_SOURCE (plain file, else HLS).
+    var usePt = window.RAWREPLAY_PLAYER && window.RAWREPLAY_PLAYER.peertube && t.pt && window.REPLAY_SOURCE;
+    if (usePt) {
+      REPLAY_SOURCE.attach(a, t.pt, { onError: function (e) { status(e.message); } })
+        .then(function () { if (opts.autoplay !== false) play(); }, function (e) { status(e.message); });
+    } else a.src = R.src(r, t);
     $("rpT").textContent = t.title; $("rpA").textContent = r.artist + " \u2014 " + r.title;
     $("rpNow").href = R.trackUrl(r, i);
     $("rpPrev").disabled = i <= 0; $("rpNext").disabled = i >= r.tracks.length - 1;
@@ -51,7 +58,7 @@
         artwork: [{ src: R.cover(r), sizes: "300x300", type: "image/jpeg" }] });
     }
     if (opts.autoplay === false) { status(""); icon(); save(); return; }
-    play();
+    if (!usePt) play();
   }
   function play() {
     if (!rel) return;

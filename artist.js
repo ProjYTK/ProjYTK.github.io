@@ -23,4 +23,4 @@
   RPUI.bind(document.getElementById("list"));
   document.getElementById("playAll").onclick = function () { RP.select(rels.slice().sort(function (a, b) { return b.released.localeCompare(a.released); })[0], 0); };
 })();
-(function(){var u=location.origin+location.pathname+location.search;var c=document.querySelector('link[rel=canonical]'),o=document.querySelector('meta[property="og:url"]');if(c)c.href=u;if(o)o.content=u;var t=document.querySelector('meta[property="og:title"]');if(t)t.content=document.title;})();
+(function(){var p=new URLSearchParams(location.search),k=p.has("id")?"id":(p.has("a")?"a":null),u=location.origin+location.pathname+(k?"?"+k+"="+encodeURIComponent(p.get(k)):"");var c=document.querySelector('link[rel=canonical]'),o=document.querySelector('meta[property="og:url"]');if(c)c.href=u;if(o)o.content=u;var t=document.querySelector('meta[property="og:title"]');if(t)t.content=document.title;})();

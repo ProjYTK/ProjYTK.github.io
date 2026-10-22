@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=12"><script src="settings.js?v=12"></script><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/watch.html"><meta property="og:url" content="https://rawreel.github.io/watch.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
+<title>Watch - RawReel</title><link rel="stylesheet" href="style.css?v=13"><script src="settings.js?v=13"></script><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/watch.html"><meta property="og:url" content="https://rawreel.github.io/watch.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Backed up for good</small></a>
@@ -41,9 +41,10 @@
       <div class="player" id="player"><div class="play"></div><div class="pbar"></div></div>
       <div class="vinfo">
         <h1 id="vtitle">Loading video…</h1>
+        <p class="vdesc vblurb" id="vblurb" hidden></p>
         <p class="vdate" id="vdate" hidden></p>
-        <div class="row" id="vrow" hidden><a href="channel.html" class="avatar"></a><div><a href="channel.html"><b class="vcreator" id="vcreator"></b></a><small class="vhandle handle" id="vhandle" hidden></small><br><span id="vsubline">Channel</span></div>
-          <div class="acts"><button class="btn">Subscribe</button><button class="ghost">Like</button><button class="ghost">Share</button><a class="ghost" id="vdl" href="#" target="_blank" rel="noopener">Download</a></div></div>
+        <div class="row" id="vrow" hidden><a href="channel.html" class="avatar" id="vav"></a><div id="vcwho"><a href="channel.html"><b class="vcreator" id="vcreator"></b></a><small class="vhandle handle" id="vhandle" hidden></small><br><span id="vsubline">Channel</span></div>
+          <div class="acts"><button class="btn" id="vsub">Subscribe</button><button type="button" class="ghost rr-vote" id="vlike" aria-pressed="false" data-vote="1"><span aria-hidden="true">👍</span> Like</button><button type="button" class="ghost rr-vote" id="vdislike" aria-pressed="false" data-vote="-1"><span aria-hidden="true">👎</span> Dislike</button><button class="ghost">Share</button></div></div>
         <p id="vdesc" class="vdesc"></p>
         <div class="rights" id="vrights" hidden></div>
       </div>
@@ -54,10 +55,12 @@
   </div>
   <aside class="side"><h2>Up next</h2><div data-minis="6"></div></aside>
 </div>
-<footer>Prototype mockup. Videos, creators, and numbers are placeholders, not real data. · <a href="faq.html">FAQ</a></footer>
-<script src="videos.js?v=12"></script>
-<script src="ads.js?v=12"></script>
-<script src="cards.js?v=12"></script>
+<footer>RawReel · Public-domain classics and channel backups · <a class="footer-faq" href="faq.html">FAQ</a></footer>
+<script src="videos.js?v=13"></script>
+<script src="ads.js?v=13"></script>
+<script src="recommend.js?v=13"></script>
+<script src="cards.js?v=13"></script>
+<script src="config.js?v=13"></script>
 <script>
 (function(){
   const params = new URLSearchParams(location.search);
@@ -82,23 +85,41 @@
   // Held items (rights check pending) are never shown, even by direct link.
   if ((window.VIDEOS_HELD || []).some(v => v.id === id)) { notFound(); return; }
 
-  const known = (window.VIDEOS || []).find(v => v.id === id) || {};
+  // Allowlist: only IDs in videos.js (window.VIDEOS), plus the hand-kept RR_CONFIG.EXTRA_ALLOWED_IDS, ever play here.
+  // Anything else (and held items above) gets the "Video not found" state: no player, no Download.
+  const extra = ((window.RR_CONFIG || {}).EXTRA_ALLOWED_IDS || []);
+  const known = (window.VIDEOS || []).find(v => v.id === id) || (extra.includes(id) ? { id } : null);
+  if (!known) { notFound(); return; }
   const host = params.get('host') || known.host || 'archive';
   const auto = params.get('autoplay') === '1';
   // clip.place keeps its iframe embed; Internet Archive videos use our own <video> player (loadNative below).
   const src = `https://clip.place/videos/embed/${encodeURIComponent(id)}${auto ? '?autoplay=1' : ''}`;
   if (known.title) $('vtitle').textContent = known.title;
-  if (known.creator) $('vcreator').textContent = known.creator;
+  // Short fact-checked blurb from videos.js (blurb field), shown under the title.
+  if (known.blurb) { $('vblurb').textContent = known.blurb; $('vblurb').hidden = false; }
+  if (known.creator && known.uploader !== 'library') $('vcreator').textContent = known.creator;
   // @handle only when videos.js has one (PeerTube username). Never made up for existing creators.
   if (known.handle) { $('vhandle').textContent = '@' + known.handle; $('vhandle').hidden = false; }
   { const dl = window.rrDateLine ? window.rrDateLine(known) : ''; if (dl) { $('vdate').textContent = dl; $('vdate').hidden = false; } }
-  // silent:true: the file still has the uncleared music. Remove the Download anchor from the DOM entirely (no href to the file anywhere).
-  if (known.silent) { const d = $('vdl'); if (d) d.remove(); }
+  // silent:true: the file still has the uncleared music, so no Download anchor is ever created (no href to the file anywhere).
+  // The Download link is never in the static HTML; it is only created here, for videos that aren't silent.
+  if (!known.silent) { const a = document.createElement('a'); a.className = 'ghost'; a.id = 'vdl'; a.href = '#'; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Download'; document.querySelector('.acts').appendChild(a); }
+  // RawReel Library (no real uploader): the creator area (avatar, name, Subscribe) shows nothing. No fake channel, no link.
+  const library = known.uploader === 'library';
+  if (library) { ['vav', 'vcwho', 'vsub'].forEach(x => { const e = $(x); if (e) e.remove(); }); }
+  // Like / Dislike: per-browser only (localStorage rr_votes via recommend.js). One active vote per video, click again to undo.
+  // No counts are shown; real counts come with PeerTube's rating endpoints (see PEERTUBE-HOOKUP.md).
+  (function () {
+    const btns = [$('vlike'), $('vdislike')];
+    const paint = () => { const cur = window.RRRec ? RRRec.vote(id) : 0; btns.forEach(b => { const on = +b.dataset.vote === cur; b.setAttribute('aria-pressed', on ? 'true' : 'false'); b.classList.toggle('on', on); }); };
+    btns.forEach(b => b.addEventListener('click', () => { if (window.RRRec) RRRec.toggle(id, +b.dataset.vote); paint(); if (window.rrRenderCards) rrRenderCards(); }));
+    paint();
+  })();
   if (known.category === 'classic') {
-    $('vsubline').textContent = 'Director'; const sb = document.querySelector('.acts .btn'); if (sb) sb.hidden = true;
     // The release year shows on the line under the title (#vdate).
     const r = $('vrights');
     r.innerHTML = `<h3>Source and rights</h3>
+      ${known.creator ? `<p>${/NASA|Army|Signal Corps/.test(known.creator) ? 'Made by' : 'Director'}: ${esc(known.creator)}</p>` : ''}
       <p><b>${known.license ? 'License: ' + (/^CC BY/.test(known.license) ? 'CC BY' : esc(known.license)) : esc(known.rightsLabel || 'Public domain')}</b>${known.license && known.license !== 'CC BY' ? ' (' + (known.licenseUrl ? `<a href="${esc(known.licenseUrl)}" target="_blank" rel="noopener">${esc(known.license)}</a>` : esc(known.license)) + ')' : ''}${known.year ? ' · released ' + esc(known.year) : ''}${known.yearSource ? ` (<a href="${esc(known.yearSource)}" target="_blank" rel="noopener">year source</a>)` : ''}</p>
       ${known.mission ? `<p>Mission: ${esc(known.mission)}</p>` : ''}
       ${known.credit ? `<p class="credit">Credit: ${esc(known.credit)}</p>` : ''}
@@ -299,7 +320,7 @@
   // The info row, notice and comments stay hidden until the host confirms the video exists.
   function reveal() {
     ['vrow', 'vnotice', 'vcomh', 'vcom'].forEach(x => { $(x).hidden = false; });
-    if (!$('vcreator').textContent) $('vcreator').textContent = host === 'clipplace' ? 'clip.place creator' : 'Internet Archive uploader';
+    if ($('vcreator') && !$('vcreator').textContent) $('vcreator').textContent = host === 'clipplace' ? 'clip.place creator' : 'Internet Archive uploader';
   }
   const start = load => {
     reveal();
@@ -344,7 +365,6 @@
   }
 })();
 </script>
-<script src="config.js?v=12"></script>
-<script src="peertube.js?v=12"></script>
-<script src="nav.js?v=12"></script>
+<script src="peertube.js?v=13"></script>
+<script src="nav.js?v=13"></script>
 </body></html>

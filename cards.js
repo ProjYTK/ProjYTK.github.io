@@ -3,6 +3,8 @@
 //   data-cards      number of cards, or "all" (= every matching video, no placeholders)
 //   data-category   "classic" or "channel"; omit for every video
 //   data-full-list  include classicsOnly entries (classics.html only)
+//   data-sort       "recent" = newest `date` first (home "Recently added" row); "foryou" = recommend.js ranking
+// Up next uses recommend.js when loaded: similar to the current video first, then your likes/dislikes.
 // Empty slots in a "channel" grid become "Your channel here" cards linking to import.html.
 // Up next lists: <div data-minis="6"></div> (classics first, current video skipped).
 (function () {
@@ -45,6 +47,9 @@
     var current = new URLSearchParams(location.search).get('v');
     document.querySelectorAll('[data-cards]').forEach(function (g) {
       var cat = g.dataset.category, full = g.hasAttribute('data-full-list'), home = g.hasAttribute('data-home'), list = vids.filter(function (v) { return (!cat || v.category === cat) && (full || !v.classicsOnly) && ok(v, home); });
+      // data-sort="recent": newest first by `date` (YYYY-MM-DD), ties go to the entry added later in videos.js.
+      if (g.dataset.sort === 'foryou' && window.RRRec) list = RRRec.rank(list, { home: home });
+      else if (g.dataset.sort === 'recent') list = list.map(function (v, i) { return [v, i]; }).sort(function (a, b) { var d = String(b[0].date || '').localeCompare(String(a[0].date || '')); return d || b[1] - a[1]; }).map(function (x) { return x[0]; });
       if (home && !list.length && cat === 'classic') { g.hidden = true; var hh = g.previousElementSibling; if (hh && hh.classList.contains('sec-h')) hh.hidden = true; return; }
       var n = g.dataset.cards === 'all' ? list.length : +g.dataset.cards, html = '';
       for (var i = 0; i < n; i++) {
@@ -57,7 +62,8 @@
     });
     document.querySelectorAll('[data-minis]').forEach(function (g) {
       var n = +g.dataset.minis, list = vids.filter(function (v) { return v.id !== current && !v.classicsOnly && ok(v, false); }), html = '';
-      list.sort(function (a, b) { return (a.category === 'classic' ? 0 : 1) - (b.category === 'classic' ? 0 : 1); });
+      if (window.RRRec) { var cur = vids.filter(function (v) { return v.id === current; })[0]; list = RRRec.rank(list, { near: cur, exclude: current }); }
+      else list.sort(function (a, b) { return (a.category === 'classic' ? 0 : 1) - (b.category === 'classic' ? 0 : 1); });
       for (var i = 0; i < Math.min(n, list.length); i++) {
         var v = list[i];
         html += '<a class="mini" href="' + href(v) + '">' + thumb(v, '') + '<div><h3>' + esc(v.title || v.id) + '</h3>' + lines(v) + '</div></a>';
