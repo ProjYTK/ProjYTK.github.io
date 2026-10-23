@@ -15,7 +15,9 @@
     '<div class="acts"><button type="button" class="bigplay" id="big" aria-label="Play release">&#9654;&#xFE0E;</button><button type="button" class="ghost" id="shareRel">Share release</button></div></div></section><ul class="tracks" id="list">';
   rel.tracks.forEach(function (t, i) { h += RPUI.row(rel, i, false); });
   h += '</ul><div class="license"><b>License:</b> <a href="' + rel.licenseUrl + '" target="_blank" rel="noopener">' + rel.license + "</a><br><b>Credit:</b> " + R.esc(rel.credit) +
-    '. Source: <a href="' + R.item(rel) + '" target="_blank" rel="noopener">archive.org/details/' + rel.archiveId + "</a><br><i>These two releases are test data used to build the player. They aren\u2019t RawReplay artist submissions.</i></div>";
+    '. Source: <a href="' + R.item(rel) + '" target="_blank" rel="noopener">' + (rel.sourceLabel ? R.esc(rel.sourceLabel) : "archive.org/details/" + rel.archiveId) + "</a>" +
+    (rel.host === "fma" ? '<br><b>Tracks:</b> ' + rel.tracks.map(function (t) { return '<a href="' + t.page + '" target="_blank" rel="noopener">\u201c' + R.esc(t.title) + '\u201d</a> by ' + (rel.artistUrl ? '<a href="' + rel.artistUrl + '" target="_blank" rel="noopener">' + R.esc(rel.artist) + '</a>' : R.esc(rel.artist)); }).join(", ") + ', each licensed <a href="' + rel.licenseUrl + '" target="_blank" rel="noopener">CC BY 4.0</a>.'
+      : "<br><i>These two releases are test data used to build the player. They aren\u2019t RawReplay artist submissions.</i>") + "</div>";
   main.innerHTML = h;
   var list = document.getElementById("list"), big = document.getElementById("big");
   RPUI.bind(list);

@@ -135,3 +135,23 @@ body.has-mini footer.rp-foot{padding-bottom:110px}
 .skip{min-height:44px;line-height:28px;box-sizing:border-box}
 @media(max-width:700px){a.tap,.crumbs a,[class*=crumb] a,nav[aria-label*=readcrumb] a{display:inline-block;min-height:44px;line-height:44px}}
 @media(max-width:700px){.tracks a,.card a,.see-all,a.more,.rp-foot a,.now a,.meta a,.license a,.rel a{display:inline-block;min-height:44px;line-height:44px}}
+/* a11y pass Oct 22: links and controls get a 44px tap area on phones without changing the layout.
+   Inline links in text grow their hit area with padding that a negative margin cancels out. */
+@media(max-width:700px){
+ body.rr-music .crumbs ol{align-items:center}body.rr-music .crumbs li{display:flex;align-items:center}body.rr-music .crumbs a{min-width:44px;text-align:center}
+ body.rr-music p a:not(.btn):not(.ghost),body.rr-music li:not(.crumbs li) a:not(.btn):not(.ghost),body.rr-music label a:not(.btn):not(.ghost),body.rr-music legend a:not(.btn):not(.ghost),body.rr-music footer a:not(.btn):not(.ghost),body.rr-music .see-all{display:inline-block;padding:14px 6px;margin:-14px -6px;min-width:44px;text-align:center;box-sizing:border-box}
+ body.rr-music .tracks a,body.rr-music .rp-back a{min-width:44px}
+ #rpNow{display:flex;align-items:center;min-height:44px}}
+/* Up-next queue and shuffle (Oct 22) */
+.mini .shuf{opacity:.7}.mini .shuf.on{opacity:1;background:#2f7fc0;border-color:#8fd0ff}
+.mini .upnext{display:block;font-size:11px;color:#8fb3d6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .upnext:empty{display:none}
+@media(max-width:480px){.mini .upnext{display:none}}
+/* 44px on desktop too (Oct 22): music nav links and the player's sliders */
+body.rr-music .navlinks a{min-height:44px}
+.mini input[type=range]{height:44px}
+/* same 44px hit area for inline links on desktop */
+body.rr-music p a:not(.btn):not(.ghost),body.rr-music li:not(.crumbs li) a:not(.btn):not(.ghost),body.rr-music label a:not(.btn):not(.ghost),body.rr-music legend a:not(.btn):not(.ghost),body.rr-music footer a:not(.btn):not(.ghost),body.rr-music .see-all,body.rr-music .meta a,body.rr-music .license a,body.rr-music .rel a,body.rr-music dd a,body.rr-music .by a{display:inline-block;padding:14px 6px;margin:-14px -6px;min-width:44px;text-align:center;box-sizing:border-box}
+@media(min-width:701px){body.rr-music .crumbs a{display:inline-block;padding:14px 4px;margin:-14px -4px;min-width:44px;text-align:center;box-sizing:border-box}}
+
+@media (min-width:701px){.form .check{min-height:44px;display:flex;align-items:center;gap:10px}.form .check input,.form input[type=radio]{width:44px;height:44px;min-height:44px;margin:0;flex:none}}

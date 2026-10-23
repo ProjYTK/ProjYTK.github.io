@@ -100,7 +100,7 @@
       res.hidden = false;
       res.className = "note-box";
       res.textContent = r && r.prototype
-        ? "Everything looks good. This is a preview: nothing was uploaded or sent. We plan to open real submissions once our own server is up."
+        ? "Everything looks good. This is a preview: nothing was uploaded or sent. Submissions aren't open yet."
         : "Thanks! Your release was sent for review. We\u2019ll email you when it\u2019s live.";
     }, function (err) {
       res.hidden = false; res.className = "warn-box"; res.textContent = "Couldn\u2019t send: " + (err && err.message || "unknown error") + ". Nothing was lost, try again.";

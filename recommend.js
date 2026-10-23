@@ -31,7 +31,11 @@
       return String(b[0].date || '').localeCompare(String(a[0].date || '')) || b[1] - a[1];
     }).map(function (x) { return x[0]; });
   }
-  // opts: { home: bool (home-page filters), near: video (Up next: similar to this one first), exclude: id }
+  // Stable daily seed: same order all day, a new mix tomorrow. Used as the For you tie-break so, with no votes,
+  // it doesn't just repeat the Recently added row.
+  function dayKey() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+  function seeded(id, seed) { var h = 2166136261, s = seed + '|' + id; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  // opts: { daily: bool (For you: ties broken by a stable daily shuffle instead of recency), home: bool (home-page filters), near: video (Up next: similar to this one first), exclude: id }
   function rank(list, opts) {
     opts = opts || {};
     var vt = votes(), all = window.VIDEOS || [];
@@ -43,7 +47,7 @@
       var sc = 0;
       liked.forEach(function (l) { if (l.id !== v.id) sc += similarity(v, l); });
       disliked.forEach(function (d) { sc -= similarity(v, d); });
-      return { v: v, near: opts.near ? similarity(v, opts.near) : 0, score: sc, i: i };
+      return { v: v, near: opts.near ? similarity(v, opts.near) : 0, score: sc, i: opts.daily ? seeded(v.id, dayKey()) : i };
     });
     scored.sort(function (a, b) { return b.near - a.near || b.score - a.score || a.i - b.i; });
     return scored.map(function (x) { return x.v; });

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Backed-up channel - RawReel</title><link rel="stylesheet" href="style.css?v=14"><script src="settings.js?v=13"></script><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/channel.html"><meta property="og:url" content="https://rawreel.github.io/channel.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
+<title>Backed-up channel - RawReel</title><link rel="stylesheet" href="style.css?v=27"><script src="settings.js?v=27"></script><!-- RawReel: favicon / app icons / manifest / social --><link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#56983A"><link rel="canonical" href="https://rawreel.github.io/channel.html"><meta property="og:url" content="https://rawreel.github.io/channel.html"><meta property="og:type" content="website"><meta property="og:site_name" content="RawReel"><meta property="og:title" content="RawReel: Your channel's backup. Classics that stay free."><meta property="og:description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta name="description" content="Back up your YouTube channel so removed videos stay up, and watch public-domain classics free."><meta property="og:image" content="https://rawreel.github.io/og-image-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://rawreel.github.io/og-image-1200x630.png"></head>
 <body>
 <header>
   <a class="logo" href="index.html"><span class="orb"></span><span class="wordmark">Raw<b>Reel</b></span><small class="tagline">Backed up for good</small></a>
@@ -24,6 +24,7 @@
         <hr>
         <a href="signin.html" data-auth="out">Sign in</a>
         <a href="signup.html" data-auth="out">Sign up</a>
+        <a href="profile.html">My profile</a>
         <a href="account.html">My account</a>
         <a href="my-channel.html">My channel</a>
         <a href="my-uploads.html">My uploads</a>
@@ -57,8 +58,8 @@
   <div class="panel tabbox empty"><span class="num">✓</span><h3>Moderation log</h3><p>No moderation actions on this channel. Any action would be listed here, with the <a href="rules.html">rule</a> it falls under.</p></div>
 </section>
 <footer>RawReel · Public-domain classics and channel backups · <a class="footer-faq" href="faq.html">FAQ</a></footer>
-<script src="videos.js?v=15"></script>
-<script src="cards.js?v=13"></script>
+<script src="videos.js?v=27"></script>
+<script src="cards.js?v=27"></script>
 <script>
 (function(){
   const tabs = [...document.querySelectorAll('.tabs .tab')];
@@ -76,7 +77,42 @@
 </script>
 <script src="config.js?v=15"></script>
 <script src="peertube.js?v=15"></script>
-<script src="nav.js?v=13"></script>
+<script src="nav.js?v=27"></script>
+<script src="states.js?v=27"></script>
+<script>
+// Local channels from videos.js (window.RR_CHANNELS) while the server is off: channel.html?c=<handle>.
+(function () {
+  const c = (new URLSearchParams(location.search).get('c') || '').toLowerCase().replace(/^@/, '');
+  const ch = c && window.RR_CHANNELS && RR_CHANNELS[c];
+  if (!ch || (window.RRPT && RRPT.enabled)) return;
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, x => '&#' + x.charCodeAt(0) + ';');
+  const vids = (window.VIDEOS || []).concat(window.VIDEOS_TEST || []).filter(v => (v.handle || '').toLowerCase() === c);
+  const h1 = document.querySelector('.chead h1'); h1.innerHTML = esc(ch.name) + (window.rrBadge ? rrBadge(c) : '');
+  const hd = document.querySelector('.chead .chandle'); hd.textContent = '@' + ch.handle; hd.hidden = false;
+  document.querySelector('.chead p:not(.chandle)').textContent = vids.length + (vids.length === 1 ? ' video' : ' videos');
+  const av = document.querySelector('.chead .avatar'); if (ch.avatar) { av.style.backgroundImage = 'url(' + ch.avatar + ')'; av.style.backgroundSize = 'cover'; }
+  const grid = document.querySelector('#pane-videos .grid'); grid.removeAttribute('data-cards');
+  grid.innerHTML = vids.length ? vids.map(v => rrCard(v)).join('') : '<p class="empty-note">No videos posted yet.</p>';
+  const ab = document.querySelector('#pane-about .tabbox'); ab.innerHTML = '<h3>About ' + esc(ch.name) + '</h3><p>' + esc(ch.bio || 'No description yet.') + '</p>';
+  document.title = ch.name + ' (@' + ch.handle + ') - RawReel';
+})();
+</script>
+<script>
+// Account states (states.js): ?state=private|banned|suspended|deleted (preview), or a channel object's status field once the server sends one.
+(function () {
+  if (!window.RRState) return;
+  const q = RRState.param(), st = q.state || (window.RR_CHANNEL && RR_CHANNEL.status) || '';
+  if (!RRState.isAccount(st)) return;
+  const hide = sel => document.querySelectorAll(sel).forEach(e => { e.hidden = true; });
+  hide('.tabs, .tabpane, .csub');
+  if (st !== 'private') hide('.banner, .chead');
+  else document.querySelector('.chead p:not(.chandle)').textContent = 'Private profile';
+  const box = document.createElement('div'); box.innerHTML = RRState.accountCard(st, { until: q.until });
+  const after = st === 'private' ? document.querySelector('.chead') : document.querySelector('.banner');
+  after.parentNode.insertBefore(box.firstChild, after.nextSibling);
+  document.title = RRState.title(st) + ' - RawReel';
+})();
+</script>
 <script>
 // Real channel pages from video.rawreel.org when PEERTUBE_ENABLED (channel.html?c=<handle>). Off = the placeholder page as before.
 (function () {

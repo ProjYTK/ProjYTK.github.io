@@ -1,0 +1,22 @@
+/* RawReel v5.7: watch page player at phone widths (480px and below). Loaded by watch.html only. */
+@media (max-width: 480px) {
+  html, body { overflow-x:hidden; }
+  .wrap, .wrap .main, .wrap .panel { max-width:100%; min-width:0; box-sizing:border-box; }
+  .wrap .panel { border-left:0; border-right:0; }
+  .wrap { padding-left:0; padding-right:0; }
+  .player, .player.rr-native { width:100%; max-width:100%; aspect-ratio:16/9; height:auto; box-sizing:border-box; padding:2px 0 0; border-left:0; border-right:0; }
+  .player, .player.rr-native, .player.rr-nf { margin-left:0; margin-right:0; min-width:0; } /* border-box: the 1px border stays inside 100% */
+  .rr-video { width:100%; height:100%; max-width:100%; }
+  .rr-ctl { left:2px; right:2px; gap:2px; padding:0 2px; }
+  .rr-ctl button { min-width:44px; min-height:44px; padding:0; }
+  .rr-ctl-seek { min-width:0; height:44px; }
+  .rr-ctl-time { font-size:11px; }
+  .vinfo { padding:10px 10px 6px; }
+  #vtitle { font-size:18px; line-height:1.25; overflow-wrap:anywhere; }
+  .vdesc, .vdate, .rights, .notice, #vcwho { overflow-wrap:anywhere; min-width:0; }
+  .notice { margin:4px 10px 12px; padding:8px 10px; }
+  .row { flex-wrap:wrap; gap:8px; }
+  .acts { display:flex; flex-wrap:wrap; gap:6px; }
+  .acts .btn, .acts .ghost, .acts button, #vsub { min-height:44px; min-width:44px; }
+  .rr-nf-btns .btn, .rr-nf-btns .ghost, .rr-nf-btns button { min-height:44px; }
+}

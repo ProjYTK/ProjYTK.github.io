@@ -1,0 +1,12 @@
+/* account.html only: keep the profile form inside narrow phone viewports (360-390px). */
+.acct-form, .acct-form * { box-sizing:border-box; }
+.acct-form { max-width:100%; min-width:0; }
+.acct-form .field, .acct-form textarea, .acct-form input, .acct-form .handle-wrap, .acct-form fieldset { max-width:100%; min-width:0; }
+.acct-avatar { display:flex; flex-wrap:wrap; gap:12px; max-width:100%; min-width:0; }
+.acct-avatar > div { flex:1 1 180px; min-width:0; max-width:100%; }
+.acct-avatar input[type=file] { width:100%; }
+.av-pick { min-width:0; max-width:100%; }
+.av-grid { display:flex; flex-wrap:wrap; gap:8px; max-width:100%; min-width:0; }
+.handle-wrap { display:flex; }
+.handle-wrap .field { flex:1 1 auto; width:auto; }
+.acct-btns { display:flex; flex-wrap:wrap; gap:8px; }

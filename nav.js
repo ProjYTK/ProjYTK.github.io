@@ -20,6 +20,7 @@
       'hr',
       { href: 'signin.html', label: 'Sign in', auth: 'out' },
       { href: 'signup.html', label: 'Sign up', auth: 'out' },
+      { href: 'profile.html', label: 'My profile' },
       { href: 'account.html', label: 'My account' },
       { href: 'my-channel.html', label: 'My channel' },
       { href: 'my-uploads.html', label: 'My uploads' },

@@ -22,10 +22,7 @@
   h.textContent = res.length + ' result' + (res.length === 1 ? '' : 's') + ' for “' + q + '”';
   document.title = 'Search: ' + q + ' - RawReel';
   if (!res.length) { out.innerHTML = '<p class="empty-note">No videos match. Try a shorter word, a year, or <a href="classics.html">browse all classics</a>.</p>'; return; }
-  out.innerHTML = res.map(function (v) {
-    var href = 'watch.html?v=' + encodeURIComponent(v.id) + (v.host === 'clipplace' ? '&host=clipplace' : '');
-    var img = v.host !== 'clipplace' ? '<img class="rr-timg" alt="" loading="lazy" src="https://archive.org/services/img/' + encodeURIComponent(v.id) + '" onerror="this.remove()">' : '';
-    var line = [v.creator, window.rrDateLine ? window.rrDateLine(v) : v.year].filter(Boolean).map(esc).join(' · ');
-    return '<a class="card' + (v.category === 'classic' ? ' classic' : '') + '" href="' + href + '"><div class="thumb">' + img + '</div><div class="meta"><h3>' + esc(v.title || v.id) + '</h3><small class="m1">' + line + '</small><small class="m2">' + (v.category === 'classic' ? 'Classic' : 'Backed-up channel') + '</small></div></a>';
-  }).join('');
+  // Same shared card as every other grid (Play + Favorite), from cards.js.
+  out.innerHTML = res.map(function (v) { return window.rrCard ? window.rrCard(v) : ''; }).join('');
+  if (window.rrFillClipThumbs) window.rrFillClipThumbs();  // clip.place thumbnails, same as the home page
 })();

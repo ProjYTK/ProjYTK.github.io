@@ -105,9 +105,10 @@
   bind('f-signin', function (f) {
     var u = $('si-user'), p = $('si-pass');
     if (!u.value.trim()) return fail(f, u, 'Enter your username or email.');
+    if (!p) return fail(f, u, "Sign-in isn't open yet.");
     if (!p.value) return fail(f, p, 'Enter your password.');
     return { u: u.value.trim(), p: p.value };
-  }, function (d) { return pt.login(d.u, d.p).then(function () { $('si-pass').value = ''; location.href = safeNext; }); });
+  }, function (d) { return pt.login(d.u, d.p).then(function () { if ($('si-pass')) $('si-pass').value = ''; location.href = safeNext; }); });
   function showForgot(yes) { if ($('f-forgot')) { $('f-forgot').hidden = !yes; $('f-signin').hidden = yes; } }
   if ($('forgot-link')) {
     $('forgot-link').addEventListener('click', function (e) { e.preventDefault(); showForgot(true); $('fg-email').focus(); });
@@ -125,6 +126,7 @@
     if (!dn.value.trim()) return fail(f, dn, 'Add a display name.');
     var hp = handleProblem(u.value.trim()); if (hp) return fail(f, u, hp);
     if (!EMAIL.test(m.value.trim())) return fail(f, m, 'Enter a valid email address.');
+    if (!p || !p2) return fail(f, dn, "Sign-up isn't open yet.");
     if (p.value.length < 8) return fail(f, p, 'Use at least 8 characters for your password.');
     if (p.value !== p2.value) return fail(f, p2, "The passwords don't match.");
     if (!HANDLE.test(c.value.trim())) return fail(f, c, 'Channel handles use lowercase letters, numbers, dots and underscores.');
@@ -216,7 +218,7 @@
     var list = uploads.filter(function (v) { return filt === 'all' || status(v) === filt; });
     $('up-list').innerHTML = list.length ? list.map(function (v) {
       var st = status(v);
-      return '<div class="acct-row"><img class="acct-thumb" alt="" src="' + esc(pt.base + (v.thumbnailPath || '')) + '"><div><b>' + esc(v.name) + '</b><br><small>' + esc(window.RRS ? RRS.formatTime(v.createdAt) : v.createdAt) + '</small>' +
+      return '<div class="acct-row"><img class="acct-thumb" alt="" loading="lazy" src="' + esc(pt.base + (v.thumbnailPath || '')) + '"><div><b>' + esc(v.name) + '</b><br><small>' + esc(window.RRS ? RRS.formatTime(v.createdAt) : v.createdAt) + '</small>' +
         (st === 'rejected' ? '<br><small class="ferr">' + esc(v.blacklistedReason) + '</small>' : '') + '</div><span class="st st-' + st + '">' + LABEL[st] + '</span>' + (st === 'live' ? '<a class="ghost" href="' + esc(pt.watchUrl(v)) + '">Watch</a>' : '') + '</div>';
     }).join('') : '<p class="empty-note">Nothing here. <a href="upload.html">Submit a video</a>.</p>';
   }
@@ -248,7 +250,7 @@
     });
     pt.subscriptionVideos().then(function (r) {
       var d = r.data || []; if (!d.length) return;
-      $('sb-videos').innerHTML = d.map(function (v) { return '<a class="card" href="' + esc(pt.watchUrl(v)) + '"><div class="thumb"><img class="rr-timg" alt="" src="' + esc(pt.base + v.thumbnailPath) + '"></div><div class="meta"><h3>' + esc(v.name) + '</h3><small class="m1">' + esc(v.channel && v.channel.displayName) + (v.account && v.account.name ? ' <span class="handle">@' + esc(v.account.name) + '</span>' : '') + '</small></div></a>'; }).join('');
+      $('sb-videos').innerHTML = d.map(function (v) { return '<a class="card" href="' + esc(pt.watchUrl(v)) + '"><div class="thumb"><img class="rr-timg" alt="" loading="lazy" src="' + esc(pt.base + v.thumbnailPath) + '"></div><div class="meta"><h3>' + esc(v.name) + '</h3><small class="m1">' + esc(v.channel && v.channel.displayName) + (v.account && v.account.name ? ' <span class="handle">@' + esc(v.account.name) + '</span>' : '') + '</small></div></a>'; }).join('');
     });
   }
   if (on && page === 'subscriptions' && pt.isSignedIn()) loadSubs();
